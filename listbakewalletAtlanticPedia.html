@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Kode Bank & E-Wallet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #f1f8e9);
+      color: #333;
+    }
+    .container {
+      max-width: 960px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+    h1 {
+      text-align: center;
+      font-size: 2em;
+      color: #1565c0;
+      margin-bottom: 20px;
+    }
+    .search-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    #searchInput {
+      width: 100%;
+      max-width: 500px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      transition: 0.3s ease;
+    }
+    #searchInput:focus {
+      border-color: #42a5f5;
+      box-shadow: 0 0 5px rgba(66, 165, 245, 0.5);
+      outline: none;
+    }
+    .table-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+    }
+    .table-wrapper {
+      flex: 1 1 45%;
+      min-width: 280px;
+    }
+    h2 {
+      font-size: 1.3em;
+      margin-bottom: 10px;
+      color: #1b5e20;
+      border-bottom: 2px solid #c8e6c9;
+      padding-bottom: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      text-align: left;
+      padding: 12px 15px;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background-color: #f9fbe7;
+      color: #558b2f;
+    }
+    tr:hover {
+      background-color: #f1f8e9;
+      transition: background 0.3s ease;
+    }
+    .code {
+      font-family: monospace;
+      font-weight: bold;
+      background: #fff3e0;
+      color: #ef6c00;
+      padding: 4px 8px;
+      border-radius: 5px;
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #777;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📋 Daftar Kode Bank & E-Wallet</h1>
+
+  <div class="search-container">
+    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="🔍 Cari nama bank atau e-wallet..."/>
+  </div>
+
+  <div class="table-container">
+    <div class="table-wrapper">
+      <h2>🏦 Bank</h2>
+      <table id="bankTable">
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Nama Bank</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="table-wrapper">
+      <h2>💳 E-Wallet</h2>
+      <table id="ewalletTable">
+        <thead>
+          <tr>
+            <th>Kode</th>
+            <th>Nama E-Wallet</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="footer">
+    Gunakan kode di atas saat transfer melalui ATM, mobile banking, atau dompet digital.
+  </div>
+</div>
+
+<script>
+  const allData = [
+  {
+    "id": "1",
+    "bank_code": "mandiri",
+    "bank_name": "Bank Mandiri",
+    "type": "bank"
+  },
+  {
+    "id": "2",
+    "bank_code": "permata",
+    "bank_name": "Bank Permata & Permata Syariah",
+    "type": "bank"
+  },
+  {
+    "id": "3",
+    "bank_code": "panin",
+    "bank_name": "Panin Bank",
+    "type": "bank"
+  },
+  {
+    "id": "4",
+    "bank_code": "ocbc",
+    "bank_name": "OCBC NISP",
+    "type": "bank"
+  },
+  {
+    "id": "5",
+    "bank_code": "citibank",
+    "bank_name": "Citibank",
+    "type": "bank"
+  },
+  {
+    "id": "6",
+    "bank_code": "artha",
+    "bank_name": "Bank Artha Graha Internasional",
+    "type": "bank"
+  },
+  {
+    "id": "7",
+    "bank_code": "dbs",
+    "bank_name": "DBS Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "8",
+    "bank_code": "capital",
+    "bank_name": "Bank Capital Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "9",
+    "bank_code": "anz",
+    "bank_name": "ANZ Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "10",
+    "bank_code": "hsbc",
+    "bank_name": "HSBC Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "11",
+    "bank_code": "rabobank",
+    "bank_name": "Rabobank International Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "12",
+    "bank_code": "mayapada",
+    "bank_name": "Bank Mayapada",
+    "type": "bank"
+  },
+  {
+    "id": "13",
+    "bank_code": "bjb",
+    "bank_name": "BJB",
+    "type": "bank"
+  },
+  {
+    "id": "14",
+    "bank_code": "dki",
+    "bank_name": "Bank DKI Jakarta",
+    "type": "bank"
+  },
+  {
+    "id": "15",
+    "bank_code": "jambi",
+    "bank_name": "Bank Jambi",
+    "type": "bank"
+  },
+  {
+    "id": "16",
+    "bank_code": "sumut",
+    "bank_name": "Bank Sumut",
+    "type": "bank"
+  },
+  {
+    "id": "17",
+    "bank_code": "lampung",
+    "bank_name": "Bank Lampung",
+    "type": "bank"
+  },
+  {
+    "id": "18",
+    "bank_code": "sulselbar",
+    "bank_name": "Bank Sulselbar",
+    "type": "bank"
+  },
+  {
+    "id": "19",
+    "bank_code": "sulut",
+    "bank_name": "Bank SulutGo",
+    "type": "bank"
+  },
+  {
+    "id": "20",
+    "bank_code": "bali",
+    "bank_name": "BPD Bali",
+    "type": "bank"
+  },
+  {
+    "id": "21",
+    "bank_code": "maluku",
+    "bank_name": "Bank Maluku",
+    "type": "bank"
+  },
+  {
+    "id": "22",
+    "bank_code": "papua",
+    "bank_name": "Bank Papua",
+    "type": "bank"
+  },
+  {
+    "id": "23",
+    "bank_code": "bengkulu",
+    "bank_name": "Bank Bengkulu",
+    "type": "bank"
+  },
+  {
+    "id": "24",
+    "bank_code": "india",
+    "bank_name": "Bank of India Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "25",
+    "bank_code": "sinarmas",
+    "bank_name": "Bank Sinarmas",
+    "type": "bank"
+  },
+  {
+    "id": "26",
+    "bank_code": "maspion",
+    "bank_name": "Bank Maspion Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "27",
+    "bank_code": "ganesha",
+    "bank_name": "Bank Ganesha",
+    "type": "bank"
+  },
+  {
+    "id": "28",
+    "bank_code": "icbc",
+    "bank_name": "ICBC Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "29",
+    "bank_code": "woori",
+    "bank_name": "Bank Woori Saudara",
+    "type": "bank"
+  },
+  {
+    "id": "30",
+    "bank_code": "jasa_jakarta",
+    "bank_name": "Bank Jasa Jakarta",
+    "type": "bank"
+  },
+  {
+    "id": "31",
+    "bank_code": "agroniaga",
+    "bank_name": "BRI Agroniaga",
+    "type": "bank"
+  },
+  {
+    "id": "32",
+    "bank_code": "ina_perdana",
+    "bank_name": "Bank Ina Perdana",
+    "type": "bank"
+  },
+  {
+    "id": "33",
+    "bank_code": "bri",
+    "bank_name": "Bank Rakyat Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "34",
+    "bank_code": "bca",
+    "bank_name": "Bank Central Asia",
+    "type": "bank"
+  },
+  {
+    "id": "35",
+    "bank_code": "cimb",
+    "bank_name": "CIMB Niaga & CIMB Niaga Syariah",
+    "type": "bank"
+  },
+  {
+    "id": "36",
+    "bank_code": "muamalat",
+    "bank_name": "Muamalat",
+    "type": "bank"
+  },
+  {
+    "id": "37",
+    "bank_code": "uob",
+    "bank_name": "TMRW/UOB",
+    "type": "bank"
+  },
+  {
+    "id": "38",
+    "bank_code": "mayora",
+    "bank_name": "Bank Mayora Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "39",
+    "bank_code": "index_selindo",
+    "bank_name": "Bank Index Selindo",
+    "type": "bank"
+  },
+  {
+    "id": "40",
+    "bank_code": "chinatrust",
+    "bank_name": "CTBC (Chinatrust) Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "41",
+    "bank_code": "commonwealth",
+    "bank_name": "Commonwealth Bank",
+    "type": "bank"
+  },
+  {
+    "id": "42",
+    "bank_code": "banten",
+    "bank_name": "BPD Banten",
+    "type": "bank"
+  },
+  {
+    "id": "43",
+    "bank_code": "mutiara",
+    "bank_name": "Bank Mutiara",
+    "type": "bank"
+  },
+  {
+    "id": "44",
+    "bank_code": "maybank",
+    "bank_name": "Bank Maybank",
+    "type": "bank"
+  },
+  {
+    "id": "45",
+    "bank_code": "anglomas",
+    "bank_name": "Anglomas International Bank",
+    "type": "bank"
+  },
+  {
+    "id": "46",
+    "bank_code": "bangkok",
+    "bank_name": "Bangkok Bank",
+    "type": "bank"
+  },
+  {
+    "id": "47",
+    "bank_code": "ibk",
+    "bank_name": "Bank IBK Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "48",
+    "bank_code": "andara",
+    "bank_name": "Bank Andara",
+    "type": "bank"
+  },
+  {
+    "id": "49",
+    "bank_code": "antar_daerah",
+    "bank_name": "Bank CCB Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "50",
+    "bank_code": "bisnis",
+    "bank_name": "Bank Bisnis Internasional",
+    "type": "bank"
+  },
+  {
+    "id": "51",
+    "bank_code": "bnp",
+    "bank_name": "Bank BNP Paribas",
+    "type": "bank"
+  },
+  {
+    "id": "52",
+    "bank_code": "fama",
+    "bank_name": "Bank Fama International",
+    "type": "bank"
+  },
+  {
+    "id": "53",
+    "bank_code": "shinhan",
+    "bank_name": "Bank Shinhan Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "54",
+    "bank_code": "mizuho",
+    "bank_name": "Bank Mizuho Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "55",
+    "bank_code": "qnb",
+    "bank_name": "Bank QNB Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "56",
+    "bank_code": "resona",
+    "bank_name": "Bank Resona Perdania",
+    "type": "bank"
+  },
+  {
+    "id": "57",
+    "bank_code": "mandiri_taspen",
+    "bank_name": "Bank Mandiri Taspen",
+    "type": "bank"
+  },
+  {
+    "id": "58",
+    "bank_code": "yudha_bhakti",
+    "bank_name": "Bank Yudha Bhakti",
+    "type": "bank"
+  },
+  {
+    "id": "59",
+    "bank_code": "centratama",
+    "bank_name": "Centratama Nasional Bank",
+    "type": "bank"
+  },
+  {
+    "id": "60",
+    "bank_code": "deutsche",
+    "bank_name": "Deutsche Bank",
+    "type": "bank"
+  },
+  {
+    "id": "61",
+    "bank_code": "prima_master",
+    "bank_name": "Prima Master Bank",
+    "type": "bank"
+  },
+  {
+    "id": "62",
+    "bank_code": "bsi",
+    "bank_name": "Bank Syariah Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "63",
+    "bank_code": "barclays",
+    "bank_name": "Bank Barclays Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "64",
+    "bank_code": "maybank_uus",
+    "bank_name": "Maybank UUS",
+    "type": "bank"
+  },
+  {
+    "id": "65",
+    "bank_code": "amar",
+    "bank_name": "Amar Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "66",
+    "bank_code": "bni",
+    "bank_name": "BNI (Bank Negara Indonesia)",
+    "type": "bank"
+  },
+  {
+    "id": "67",
+    "bank_code": "danamon",
+    "bank_name": "Bank Danamon & Danamon Syariah",
+    "type": "bank"
+  },
+  {
+    "id": "68",
+    "bank_code": "btn",
+    "bank_name": "BTN/BTN Syariah",
+    "type": "bank"
+  },
+  {
+    "id": "69",
+    "bank_code": "bukopin",
+    "bank_name": "Wokee/Bukopin",
+    "type": "bank"
+  },
+  {
+    "id": "70",
+    "bank_code": "hana",
+    "bank_name": "LINE Bank/KEB Hana",
+    "type": "bank"
+  },
+  {
+    "id": "71",
+    "bank_code": "artos",
+    "bank_name": "Jago/Artos",
+    "type": "bank"
+  },
+  {
+    "id": "72",
+    "bank_code": "agris",
+    "bank_name": "Bank IBK Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "73",
+    "bank_code": "aceh",
+    "bank_name": "Bank Aceh Syariah",
+    "type": "bank"
+  },
+  {
+    "id": "74",
+    "bank_code": "cnb",
+    "bank_name": "Bank CNB (Centratama Nasional Bank)",
+    "type": "bank"
+  },
+  {
+    "id": "75",
+    "bank_code": "harda",
+    "bank_name": "Allo Bank/Bank Harda Internasional",
+    "type": "bank"
+  },
+  {
+    "id": "76",
+    "bank_code": "mantap",
+    "bank_name": "BANK MANTAP (Mandiri Taspen)",
+    "type": "bank"
+  },
+  {
+    "id": "77",
+    "bank_code": "gopay",
+    "bank_name": "GoPay",
+    "type": "ewallet"
+  },
+  {
+    "id": "78",
+    "bank_code": "ovo",
+    "bank_name": "OVO",
+    "type": "ewallet"
+  },
+  {
+    "id": "79",
+    "bank_code": "shopeepay",
+    "bank_name": "ShopeePay",
+    "type": "ewallet"
+  },
+  {
+    "id": "80",
+    "bank_code": "dana",
+    "bank_name": "Dana",
+    "type": "ewallet"
+  },
+  {
+    "id": "81",
+    "bank_code": "linkaja",
+    "bank_name": "LinkAja",
+    "type": "ewallet"
+  },
+  {
+    "id": "82",
+    "bank_code": "aceh_syar",
+    "bank_name": "PT. BPD ISTIMEWA ACEH SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "83",
+    "bank_code": "artajasa",
+    "bank_name": "PT. ARTAJASA PEMBAYARAN ELEKTRONIK",
+    "type": "bank"
+  },
+  {
+    "id": "84",
+    "bank_code": "bca_syar",
+    "bank_name": "PT. BANK BCA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "85",
+    "bank_code": "bjb_syar",
+    "bank_name": "PT. BANK JABAR BANTEN SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "86",
+    "bank_code": "bni_syar",
+    "bank_name": "PT. BANK SYARIAH INDONESIA TBK. - BNIS",
+    "type": "bank"
+  },
+  {
+    "id": "87",
+    "bank_code": "bnp_paribas",
+    "bank_name": "PT. BANK BNP PARIBAS INDONESIA",
+    "type": "bank"
+  },
+  {
+    "id": "88",
+    "bank_code": "boa",
+    "bank_name": "BANK OF AMERICA NA",
+    "type": "bank"
+  },
+  {
+    "id": "89",
+    "bank_code": "bri_syar",
+    "bank_name": "PT. BANK SYARIAH INDONESIA TBK. - BRIS",
+    "type": "bank"
+  },
+  {
+    "id": "90",
+    "bank_code": "btn_syar",
+    "bank_name": "PT. BANK TABUNGAN NEGARA (PERSERO) UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "91",
+    "bank_code": "btpn",
+    "bank_name": "PT. BANK TABUNGAN PENSIUNAN NASIONAL",
+    "type": "bank"
+  },
+  {
+    "id": "92",
+    "bank_code": "btpn_syar",
+    "bank_name": "PT. BANK TABUNGAN PENSIUNAN NASIONAL SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "93",
+    "bank_code": "bukopin_syar",
+    "bank_name": "PT. BANK SYARIAH BUKOPIN",
+    "type": "bank"
+  },
+  {
+    "id": "94",
+    "bank_code": "bumi_artha",
+    "bank_name": "PT. BANK BUMI ARTA",
+    "type": "bank"
+  },
+  {
+    "id": "95",
+    "bank_code": "bumiputera",
+    "bank_name": "PT. BANK BUMIPUTERA",
+    "type": "bank"
+  },
+  {
+    "id": "96",
+    "bank_code": "chase",
+    "bank_name": "KC JPMORGAN CHASE BANK, N.A.",
+    "type": "bank"
+  },
+  {
+    "id": "97",
+    "bank_code": "china",
+    "bank_name": "KC BANK OF CHINA LIMITED",
+    "type": "bank"
+  },
+  {
+    "id": "98",
+    "bank_code": "china_cons",
+    "bank_name": "PT. BANK CHINA CONSTRUCTION BANK INDONESIA, TBK.",
+    "type": "bank"
+  },
+  {
+    "id": "99",
+    "bank_code": "cimb_rekening_ponsel",
+    "bank_name": "PT. BANK CIMB NIAGA TBK. - REKENING PONSEL",
+    "type": "bank"
+  },
+  {
+    "id": "100",
+    "bank_code": "cimb_syar",
+    "bank_name": "PT. BANK CIMB NIAGA TBK. - UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "101",
+    "bank_code": "danamon_syar",
+    "bank_name": "PT. BANK DANAMON INDONESIA UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "102",
+    "bank_code": "dipo",
+    "bank_name": "PT. BANK DIPO INTERNATIONAL",
+    "type": "bank"
+  },
+  {
+    "id": "103",
+    "bank_code": "diy",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH DIY",
+    "type": "bank"
+  },
+  {
+    "id": "104",
+    "bank_code": "diy_syar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH DIY UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "105",
+    "bank_code": "dki_syar",
+    "bank_name": "PT. BANK DKI UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "106",
+    "bank_code": "ekonomi",
+    "bank_name": "PT. BANK EKONOMI RAHARJA",
+    "type": "bank"
+  },
+  {
+    "id": "107",
+    "bank_code": "hs_1906",
+    "bank_name": "PT. BANK HS 1906",
+    "type": "bank"
+  },
+  {
+    "id": "108",
+    "bank_code": "jateng",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH JAWA TENGAH",
+    "type": "bank"
+  },
+  {
+    "id": "109",
+    "bank_code": "jateng_syar",
+    "bank_name": "PT. BPD JAWA TENGAH UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "110",
+    "bank_code": "jatim",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH JATIM",
+    "type": "bank"
+  },
+  {
+    "id": "111",
+    "bank_code": "jatim_syar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH JATIM - UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "112",
+    "bank_code": "jtrust",
+    "bank_name": "PT. BANK JTRUST INDONESIA TBK.",
+    "type": "bank"
+  },
+  {
+    "id": "113",
+    "bank_code": "kalbar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH KALBAR",
+    "type": "bank"
+  },
+  {
+    "id": "114",
+    "bank_code": "kalbar_syar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH KALBAR - UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "115",
+    "bank_code": "kalsel",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH KALSEL",
+    "type": "bank"
+  },
+  {
+    "id": "116",
+    "bank_code": "kalsel_syar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH KALSEL - UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "117",
+    "bank_code": "kalteng",
+    "bank_name": "PT. BPD KALIMANTAN TENGAH",
+    "type": "bank"
+  },
+  {
+    "id": "118",
+    "bank_code": "kaltim",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH KALTIM",
+    "type": "bank"
+  },
+  {
+    "id": "119",
+    "bank_code": "kaltim_syar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH KALTIM - UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "120",
+    "bank_code": "kesejahteraan",
+    "bank_name": "PT. BANK KESEJAHTERAAN EKONOMI",
+    "type": "bank"
+  },
+  {
+    "id": "121",
+    "bank_code": "mandiri_syar",
+    "bank_name": "PT. BANK SYARIAH INDONESIA TBK. - MANDIRI",
+    "type": "bank"
+  },
+  {
+    "id": "122",
+    "bank_code": "maybank_syar",
+    "bank_name": "PT. BANK MAYBANK SYARIAH INDONESIA",
+    "type": "bank"
+  },
+  {
+    "id": "123",
+    "bank_code": "mega_syar",
+    "bank_name": "PT. BANK MEGA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "124",
+    "bank_code": "mega_tbk",
+    "bank_name": "PT. BANK MEGA TBK.",
+    "type": "bank"
+  },
+  {
+    "id": "125",
+    "bank_code": "mestika",
+    "bank_name": "PT. BANK MESTIKA DHARMA",
+    "type": "bank"
+  },
+  {
+    "id": "126",
+    "bank_code": "metro",
+    "bank_name": "PT. BANK METRO EXPRESS",
+    "type": "bank"
+  },
+  {
+    "id": "127",
+    "bank_code": "mitraniaga",
+    "bank_name": "PT. BANK MITRANIAGA",
+    "type": "bank"
+  },
+  {
+    "id": "128",
+    "bank_code": "mitsubishi",
+    "bank_name": "THE BANK OF TOKYO MITSUBISHI UFJ LTD.",
+    "type": "bank"
+  },
+  {
+    "id": "129",
+    "bank_code": "mnc",
+    "bank_name": "PT. BANK MNC INTERNASIONAL TBK.",
+    "type": "bank"
+  },
+  {
+    "id": "130",
+    "bank_code": "multiarta",
+    "bank_name": "PT. BANK MULTI ARTA SENTOSA",
+    "type": "bank"
+  },
+  {
+    "id": "131",
+    "bank_code": "nagari",
+    "bank_name": "PT. BANK NAGARI",
+    "type": "bank"
+  },
+  {
+    "id": "132",
+    "bank_code": "niaga_syar",
+    "bank_name": "PT. BANK NIAGA TBK. SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "133",
+    "bank_code": "nobu",
+    "bank_name": "PT. BANK NATIONALNOBU",
+    "type": "bank"
+  },
+  {
+    "id": "134",
+    "bank_code": "ntb",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH NTB",
+    "type": "bank"
+  },
+  {
+    "id": "135",
+    "bank_code": "ntt",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH NTT",
+    "type": "bank"
+  },
+  {
+    "id": "136",
+    "bank_code": "ocbc_syar",
+    "bank_name": "PT. BANK OCBC NISP TBK. - UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "137",
+    "bank_code": "panin_syar",
+    "bank_name": "PT. BANK PANIN SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "138",
+    "bank_code": "permata_syar",
+    "bank_name": "PT. BANK PERMATA TBK. UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "139",
+    "bank_code": "pundi",
+    "bank_name": "PT. BANK PUNDI INDONESIA",
+    "type": "bank"
+  },
+  {
+    "id": "140",
+    "bank_code": "purba",
+    "bank_name": "PT. BANK PURBA DANARTA",
+    "type": "bank"
+  },
+  {
+    "id": "141",
+    "bank_code": "rbos",
+    "bank_name": "THE ROYAL BANK OF SCOTLAND N.V.",
+    "type": "bank"
+  },
+  {
+    "id": "142",
+    "bank_code": "riau",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH RIAU KEPRI",
+    "type": "bank"
+  },
+  {
+    "id": "143",
+    "bank_code": "bcad",
+    "bank_name": "PT. BANK DIGITAL BCA",
+    "type": "bank"
+  },
+  {
+    "id": "144",
+    "bank_code": "sampoerna",
+    "bank_name": "PT. BANK SAHABAT SAMPOERNA",
+    "type": "bank"
+  },
+  {
+    "id": "145",
+    "bank_code": "sbi",
+    "bank_name": "PT. BANK SBI INDONESIA",
+    "type": "bank"
+  },
+  {
+    "id": "146",
+    "bank_code": "sinarmas_syar",
+    "bank_name": "PT. BANK SINARMAS UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "147",
+    "bank_code": "stanchard",
+    "bank_name": "STANDARD CHARTERED BANK",
+    "type": "bank"
+  },
+  {
+    "id": "148",
+    "bank_code": "sulselbar_syar",
+    "bank_name": "PT. BPD SULAWESI SELATAN DAN SULAWESI BARAT UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "149",
+    "bank_code": "sulteng",
+    "bank_name": "PT. BPD SULAWESI TENGAH",
+    "type": "bank"
+  },
+  {
+    "id": "150",
+    "bank_code": "sultenggara",
+    "bank_name": "PT. BPD SULAWESI TENGGARA",
+    "type": "bank"
+  },
+  {
+    "id": "151",
+    "bank_code": "sumbar",
+    "bank_name": "PT. BPD SUMATERA BARAT",
+    "type": "bank"
+  },
+  {
+    "id": "152",
+    "bank_code": "sumitomo",
+    "bank_name": "PT. BANK SUMITOMO MITSUI INDONESIA",
+    "type": "bank"
+  },
+  {
+    "id": "153",
+    "bank_code": "sumsel_babel",
+    "bank_name": "PT. BPD SUMSEL DAN BABEL",
+    "type": "bank"
+  },
+  {
+    "id": "154",
+    "bank_code": "sumsel_babel_syar",
+    "bank_name": "PT. BPD SUMSEL DAN BABEL UNIT USAHA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "155",
+    "bank_code": "sumut_syar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH SUMUT UUS",
+    "type": "bank"
+  },
+  {
+    "id": "156",
+    "bank_code": "victoria",
+    "bank_name": "PT. BANK VICTORIA INTERNATIONAL",
+    "type": "bank"
+  },
+  {
+    "id": "157",
+    "bank_code": "victoria_syar",
+    "bank_name": "PT. BANK VICTORIA SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "158",
+    "bank_code": "bank_indonesia",
+    "bank_name": "BANK INDONESIA",
+    "type": "bank"
+  },
+  {
+    "id": "159",
+    "bank_code": "riau_syar",
+    "bank_name": "PT. BANK PEMBANGUNAN DAERAH RIAU KEPRI SYARIAH",
+    "type": "bank"
+  },
+  {
+    "id": "160",
+    "bank_code": "ok",
+    "bank_name": "PT. BANK OKE INDONESIA",
+    "type": "bank"
+  },
+  {
+    "id": "161",
+    "bank_code": "jago",
+    "bank_name": "PT. BANK JAGO TBK.",
+    "type": "bank"
+  },
+  {
+    "id": "162",
+    "bank_code": "bprks",
+    "bank_name": "BPR KS",
+    "type": "bank"
+  },
+  {
+    "id": "163",
+    "bank_code": "seabank",
+    "bank_name": "SEA BANK",
+    "type": "bank"
+  },
+  {
+    "id": "164",
+    "bank_code": "new_mandiri",
+    "bank_name": "PT. BANK MANDIRI (PERSERO) TBK.",
+    "type": "bank"
+  },
+  {
+    "id": "165",
+    "bank_code": "ntb_syariah",
+    "bank_name": "Bank NTB Syariah",
+    "type": "bank"
+  },
+  {
+    "id": "166",
+    "bank_code": "bpd_kaltim",
+    "bank_name": "Bank BPD Kaltim",
+    "type": "bank"
+  },
+  {
+    "id": "167",
+    "bank_code": "jago_syariah",
+    "bank_name": "Bank Jago Syariah",
+    "type": "bank"
+  },
+  {
+    "id": "169",
+    "bank_code": "jenius",
+    "bank_name": "Jenius",
+    "type": "bank"
+  },
+  {
+    "id": "170",
+    "bank_code": "ekspor",
+    "bank_name": "Bank Ekspor Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "171",
+    "bank_code": "arta_niaga",
+    "bank_name": "Bank Arta Niaga Kencana",
+    "type": "bank"
+  },
+  {
+    "id": "172",
+    "bank_code": "amex",
+    "bank_name": "American Express Bank LTD",
+    "type": "bank"
+  },
+  {
+    "id": "173",
+    "bank_code": "ing",
+    "bank_name": "ING Indonesia Bank",
+    "type": "bank"
+  },
+  {
+    "id": "174",
+    "bank_code": "indosuez",
+    "bank_name": "Bank Credit Agricole Indosuez",
+    "type": "bank"
+  },
+  {
+    "id": "175",
+    "bank_code": "abn_amro",
+    "bank_name": "Bank ABN Amro",
+    "type": "bank"
+  },
+  {
+    "id": "176",
+    "bank_code": "korea_exc",
+    "bank_name": "Korea Exchange Bank Danamon",
+    "type": "bank"
+  },
+  {
+    "id": "177",
+    "bank_code": "haga",
+    "bank_name": "Bank Haga",
+    "type": "bank"
+  },
+  {
+    "id": "178",
+    "bank_code": "ifi",
+    "bank_name": "Bank IFI",
+    "type": "bank"
+  },
+  {
+    "id": "179",
+    "bank_code": "parahyangan",
+    "bank_name": "Bank Nusantara Parahyangan",
+    "type": "bank"
+  },
+  {
+    "id": "180",
+    "bank_code": "hagakita",
+    "bank_name": "Bank Hagakita",
+    "type": "bank"
+  },
+  {
+    "id": "181",
+    "bank_code": "windu",
+    "bank_name": "Bank Windu Kentjana",
+    "type": "bank"
+  },
+  {
+    "id": "182",
+    "bank_code": "harmoni",
+    "bank_name": "Bank Harmoni International",
+    "type": "bank"
+  },
+  {
+    "id": "183",
+    "bank_code": "swaguna",
+    "bank_name": "Bank Swaguna",
+    "type": "bank"
+  },
+  {
+    "id": "184",
+    "bank_code": "sri_partha",
+    "bank_name": "Bank Sri Partha",
+    "type": "bank"
+  },
+  {
+    "id": "185",
+    "bank_code": "manunggal",
+    "bank_name": "Bank Bintang Manunggal",
+    "type": "bank"
+  },
+  {
+    "id": "186",
+    "bank_code": "royal",
+    "bank_name": "Bank Royal Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "187",
+    "bank_code": "bpi",
+    "bank_name": "Bank Persyarikatan Indonesia",
+    "type": "bank"
+  },
+  {
+    "id": "188",
+    "bank_code": "liman",
+    "bank_name": "Liman International Bank",
+    "type": "bank"
+  }
+];
+
+  function populateTables() {
+    const bankTbody = document.getElementById('bankTable').getElementsByTagName('tbody')[0];
+    const ewalletTbody = document.getElementById('ewalletTable').getElementsByTagName('tbody')[0];
+
+    allData.sort((a, b) => a.bank_name.localeCompare(b.bank_name));
+    allData.forEach(item => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td><span class="code">${item.bank_code}</span></td>
+        <td>${item.bank_name}</td>`;
+      if (item.type === 'bank') bankTbody.appendChild(row);
+      else ewalletTbody.appendChild(row);
+    });
+  }
+
+  function searchFunction() {
+    const filter = document.getElementById('searchInput').value.toUpperCase();
+    const tables = [document.getElementById('bankTable'), document.getElementById('ewalletTable')];
+
+    tables.forEach(table => {
+      const tr = table.getElementsByTagName('tr');
+      for (let i = 1; i < tr.length; i++) {
+        const td = tr[i].getElementsByTagName('td')[1];
+        if (td) {
+          const text = td.textContent || td.innerText;
+          tr[i].style.display = text.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+        }
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', populateTables);
+</script>
+
+</body>
+</html>
