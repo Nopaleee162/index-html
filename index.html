@@ -1,153 +1,169 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Kode Bank & E-Wallet</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-            background-color: #f4f7f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-        }
-        h1 {
-            text-align: center;
-            color: #1a2a45;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-        }
-        .search-container {
-            margin-bottom: 25px;
-        }
-        #searchInput {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
-            box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-        #searchInput:focus {
-            outline: none;
-            border-color: #007bff;
-            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
-        }
-        .table-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 30px;
-        }
-        @media (min-width: 768px) {
-            .table-container {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        .table-wrapper {
-            overflow-x: auto;
-        }
-        h2 {
-            font-size: 1.4em;
-            color: #007bff;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
-        }
-        th {
-            background-color: #f8f9fa;
-            font-weight: 600;
-            color: #495057;
-        }
-        tr:last-child td {
-            border-bottom: none;
-        }
-        tr:hover {
-            background-color: #f1f3f5;
-        }
-        .code {
-            font-family: 'Courier New', Courier, monospace;
-            font-weight: bold;
-            color: #e83e8c;
-            background-color: #fdf2f7;
-            padding: 3px 6px;
-            border-radius: 4px;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #888;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daftar Kode Bank & E-Wallet</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #f0f4f8, #e3f2fd); /* biru muda-putih */
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background: linear-gradient(120deg, #007BFF, #00C6FF);
+      padding: 20px 0;
+      text-align: center;
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    header img {
+      max-height: 200px;
+      border-radius: 12px;
+      margin: 15px auto;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.2em;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 12px 24px rgba(0,0,0,0.05);
+    }
+    .search-box {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    #searchInput {
+      width: 100%;
+      max-width: 500px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+    #searchInput:focus {
+      border-color: #00C6FF;
+      outline: none;
+      box-shadow: 0 0 8px rgba(0,198,255,0.3);
+    }
+    .table-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: space-between;
+    }
+    .table-wrapper {
+      flex: 1 1 45%;
+      min-width: 300px;
+    }
+    h2 {
+      font-size: 1.4em;
+      color: #007BFF;
+      border-left: 5px solid #00C6FF;
+      padding-left: 12px;
+      margin-bottom: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+    th {
+      background-color: #f1f8ff;
+      color: #007BFF;
+    }
+    tr:hover {
+      background-color: #e3f2fd; /* biru muda */
+    }
+    tr.clicked {
+      background-color: #c8f1d3 !important;
+      transition: background-color 0.6s ease;
+    }
+    .code {
+      background: #e3f2fd;
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: #0d47a1;
+      font-family: monospace;
+      font-weight: 600;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+      padding: 30px 0;
+    }
+    #notif {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(50, 50, 50, 0.9);
+      color: white;
+      padding: 10px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 9999;
+    }
+    #notif.show {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
-
-    <div class="container">
-        <h1>Daftar Kode Bank & E-Wallet</h1>
-        
-        <div class="search-container">
-            <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Cari nama bank atau e-wallet...">
-        </div>
-
-        <div class="table-container">
-            <div class="table-wrapper">
-                <h2>🏦 Bank</h2>
-                <table id="bankTable">
-                    <thead>
-                        <tr>
-                            <th>Kode</th>
-                            <th>Nama Bank</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-            <div class="table-wrapper">
-                <h2>💳 E-Wallet</h2>
-                <table id="ewalletTable">
-                    <thead>
-                        <tr>
-                            <th>Kode</th>
-                            <th>Nama E-Wallet</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        </tbody>
-                </table>
-            </div>
-        </div>
-
+<div id="notif">Kode berhasil disalin!</div>
+<header>
+  <img src="https://e.top4top.io/p_3297kvdvu1.jpg" alt="Banner" />
+  <h1 style="font-size: 2.4em; line-height: 1.4; font-weight: 600;">
+    <span style="color:#673ab7;">Daftar Kode</span><br>
+    <span style="color:#009688;">Bank</span> &amp; <span style="color:#ff5722;">E-Wallet</span><br>
+    <span style="font-size: 0.6em; font-weight: 400; color:#555;">
+      by <strong style="color:#3f51b5;">Atlantic-pedia</strong> &copy; 2025
+    </span>
+  </h1>
+</header>
+<div class="container">
+  <div class="search-box">
+    <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="🔍 Cari nama bank atau e-wallet..."/>
+  </div>
+  <div class="table-container">
+    <div class="table-wrapper">
+      <h2>💳 E-Wallet</h2>
+      <table id="ewalletTable">
+        <thead><tr><th>Kode</th><th>Nama E-Wallet</th></tr></thead>
+        <tbody></tbody>
+      </table>
     </div>
-
-    <div class="footer">
-        <p>Gunakan kode di atas untuk perintah transfer dana.</p>
+    <div class="table-wrapper">
+      <h2>🏦 Bank</h2>
+      <table id="bankTable">
+        <thead><tr><th>Kode</th><th>Nama Bank</th></tr></thead>
+        <tbody></tbody>
+      </table>
     </div>
-
-    <script>
-        // --- DATA BANK & E-WALLET ---
-        // Anda bisa mengganti data ini dengan hasil panggilan API jika diinginkan,
-        // tetapi meletakkannya langsung di sini membuat halaman lebih cepat.
-        const allData = [
+  </div>
+</div>
+<footer>
+  📢 Data kode bank & e-wallet disusun oleh <strong>Atlantic-pedia</strong> &copy; 2025. Semua hak dilindungi.
+</footer>
+<script>
+  // Tabel dan search
+  const allData = [
   {
     "id": "1",
     "bank_code": "mandiri",
@@ -1271,55 +1287,44 @@
     "type": "bank"
   }
 ];
-
-        // --- FUNGSI UNTUK MENGISI TABEL ---
-        function populateTables() {
-            const bankTbody = document.getElementById('bankTable').getElementsByTagName('tbody')[0];
-            const ewalletTbody = document.getElementById('ewalletTable').getElementsByTagName('tbody')[0];
-
-            // Urutkan data berdasarkan nama
-            allData.sort((a, b) => a.bank_name.localeCompare(b.bank_name));
-
-            allData.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><span class="code">${item.bank_code}</span></td>
-                    <td>${item.bank_name}</td>
-                `;
-                
-                if (item.type === 'bank') {
-                    bankTbody.appendChild(row);
-                } else {
-                    ewalletTbody.appendChild(row);
-                }
-            });
-        }
-
-        // --- FUNGSI PENCARIAN ---
-        function searchFunction() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toUpperCase();
-            const tables = [document.getElementById('bankTable'), document.getElementById('ewalletTable')];
-
-            tables.forEach(table => {
-                const tr = table.getElementsByTagName('tr');
-                for (let i = 1; i < tr.length; i++) { // Mulai dari 1 untuk skip header
-                    const td = tr[i].getElementsByTagName('td')[1]; // Kolom nama
-                    if (td) {
-                        const txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            tr[i].style.display = "";
-                        } else {
-                            tr[i].style.display = "none";
-                        }
-                    }
-                }
-            });
-        }
-
-        // --- JALANKAN SAAT HALAMAN DIMUAT ---
-        document.addEventListener('DOMContentLoaded', populateTables);
-    </script>
-
+  function populateTables(){
+    const bankBody = document.querySelector('#bankTable tbody');
+    const ewalBody = document.querySelector('#ewalletTable tbody');
+    bankBody.innerHTML = ewalBody.innerHTML = '';
+    allData.sort((a,b)=>a.bank_name.localeCompare(b.bank_name))
+           .forEach(item=>{
+              const row=document.createElement('tr');
+              row.innerHTML=`
+                <td><span class="code">${item.bank_code}</span></td>
+                <td>${item.bank_name}</td>`;
+              row.title='Klik untuk salin kode';
+              row.addEventListener('click',()=>copyRow(row,item.bank_code));
+              (item.type==='bank'?bankBody:ewalBody).appendChild(row);
+           });
+  }
+  function copyRow(row,code){
+    navigator.clipboard.writeText(code).then(()=>{
+      row.classList.add('clicked');
+      showNotif(code);
+      setTimeout(()=>row.classList.remove('clicked'),800);
+    });
+  }
+  function showNotif(text) {
+    const notif = document.getElementById('notif');
+    notif.textContent = `Kode "${text}" berhasil disalin!`;
+    notif.classList.add("show");
+    setTimeout(() => notif.classList.remove("show"), 1500);
+  }
+  function searchFunction(){
+    const key = document.getElementById('searchInput').value.toUpperCase();
+    [ '#bankTable','#ewalletTable' ].forEach(sel=>{
+       [...document.querySelectorAll(sel+' tbody tr')].forEach(tr=>{
+          const txt=tr.innerText.toUpperCase();
+          tr.style.display = txt.includes(key)?'':'none';
+       });
+    });
+  }
+  document.addEventListener('DOMContentLoaded',populateTables);
+</script>
 </body>
 </html>
