@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Pricelist Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS untuk Halaman Pilihan */
+        body {
+            margin: 0;
+            font-family: 'Oswald', sans-serif;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1c1c1c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            text-align: center;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 4em;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.7), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .game-selection {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .game-card {
+            width: 220px;
+            height: 300px;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .game-card:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.4) 0%, rgba(0, 191, 255, 0) 70%);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease, height 0.4s ease;
+        }
+
+        .game-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            border-color: #00bfff;
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.8);
+        }
+        
+        .game-card:hover:before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .game-card img {
+            width: 150px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .game-card span {
+            font-size: 1.8em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pilih Game</h1>
+        <div class="game-selection">
+            <a href="mlbb.html" class="game-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Mobile_Legends_Bang_Bang_logo_text.png" alt="Mobile Legends Logo">
+                <span>Mobile Legends</span>
+            </a>
+
+            <a href="pubgm.html" class="game-card">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/PUBG_Mobile_logo.png/1200px-PUBG_Mobile_logo.png" alt="PUBG Mobile Logo">
+                <span>PUBG Mobile</span>
+            </a>
+
+            <a href="ff.html" class="game-card">
+                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Garena_Free_Fire_Logo.png/640px-Garena_Free_Fire_Logo.png" alt="Free Fire Logo">
+                <span>Free Fire</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
