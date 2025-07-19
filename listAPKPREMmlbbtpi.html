@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricelist Layanan Digital Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0c1322;
+            color: #e2e8f0;
+        }
+        .aurora-effect {
+            position: fixed;
+            pointer-events: none;
+            filter: blur(140px);
+            opacity: 0.15;
+            z-index: -1;
+            animation: aurora-flow 20s linear infinite alternate;
+        }
+        @keyframes aurora-flow {
+            0% { transform: translateX(-10%) translateY(-10%) scale(1); }
+            100% { transform: translateX(10%) translateY(10%) scale(1.2); }
+        }
+        .animated-gradient-text {
+            background-size: 200% auto;
+            animation: gradient-flow 4s ease infinite;
+        }
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 0.7s ease-out forwards;
+            opacity: 0;
+        }
+        .marquee-container {
+            display: flex;
+            animation: marquee 10s linear infinite;
+        }
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(-50%); }
+            50% { transform: translateY(-5px) translateX(-50%); }
+        }
+        .floating-btn {
+            animation: float 3s ease-in-out infinite;
+        }
+        details > summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-slate-950">
+
+    <div class="aurora-effect top-[-25%] left-[-25%] w-[700px] h-[700px] bg-cyan-600 rounded-full"></div>
+    <div class="aurora-effect bottom-[-25%] right-[-25%] w-[700px] h-[700px] bg-purple-700 rounded-full"></div>
+
+    <div id="main-view">
+        <div class="container mx-auto px-4 py-16 md:py-20">
+            <div class="text-center mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
+                <p class="text-sm text-slate-500">✨ Powered by <span class="font-bold text-slate-400">mlbbtpi</span> ✨</p>
+            </div>
+            <header class="text-center mb-12 md:mb-16">
+                <h1 id="pageTitle" class="text-5xl md:text-7xl font-extrabold tracking-tighter bg-gradient-to-r from-teal-400 via-sky-400 to-indigo-500 bg-clip-text text-transparent animated-gradient-text animate-fade-in-up" style="animation-delay: 200ms;">
+                    Pricelist Digital
+                </h1>
+                <p id="pageSubtitle" class="mt-4 max-w-2xl mx-auto text-lg text-slate-400 animate-fade-in-up" style="animation-delay: 350ms;">
+                    Solusi Kebutuhan Digital Premium Anda dengan Harga Terbaik dan Garansi Penuh.
+                </p>
+            </header>
+            
+            <div class="max-w-xl mx-auto mb-16 md:mb-20 animate-fade-in-up" style="animation-delay: 500ms;">
+                <form id="searchForm" action="#" method="get">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <svg class="h-5 w-5 text-slate-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                            </svg>
+                        </div>
+                        <input type="search" id="searchInput" name="search" class="block w-full pl-11 pr-4 py-3.5 border border-slate-700 rounded-xl bg-slate-800/80 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-colors" placeholder="Cari produk & tekan Enter...">
+                    </div>
+                </form>
+            </div>
+            
+            <div id="showCategoriesContainer" class="max-w-xl mx-auto mb-12 text-center animate-fade-in-up" style="animation-delay: 600ms;">
+                <button id="showCategoriesBtn" class="w-full flex items-center justify-center gap-3 py-4 px-6 bg-slate-800/50 border border-slate-700 rounded-xl text-white font-bold hover:bg-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 shadow-lg hover:shadow-cyan-500/10">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Lihat Semua Kategori Produk
+                </button>
+            </div>
+
+            <section id="bestSellers" class="mb-16 md:mb-20 animate-fade-in-up" style="animation-delay: 700ms;">
+                 <h2 class="text-2xl font-bold text-center text-white mb-8">
+                    Paling Populer </span>
+                 </h2>
+                 <div class="relative overflow-hidden group">
+                    <div id="bestSellersList" class="marquee-container flex items-stretch gap-4">
+                        </div>
+                 </div>
+            </section>
+            
+            <section id="advantages" class="py-16 text-center">
+                <h2 class="text-3xl font-bold text-white mb-10">Kenapa Memilih Kami?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="bg-green-500/10 p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div>
+                        <h3 class="font-bold text-xl text-white mb-2">Proses Cepat</h3>
+                        <p class="text-slate-400 text-sm">Pesanan diproses instan setelah pembayaran. Tidak perlu menunggu lama.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="bg-sky-500/10 p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg></div>
+                        <h3 class="font-bold text-xl text-white mb-2">Garansi Penuh</h3>
+                        <p class="text-slate-400 text-sm">Kami memberikan garansi penuh sesuai durasi langganan yang Anda pilih.</p>
+                    </div>
+                    <div class="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 flex flex-col items-center">
+                        <div class="bg-amber-500/10 p-3 rounded-lg mb-4"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v.01M12 6v-1m0 1H9m3 0h3m-3 12v-1m0 1H9m3 0h3m-3 0V10m0 6h.01M12 18h.01M12 18v-1m0-11v-1m0 11V10m0 8v-1" /></svg></div>
+                        <h3 class="font-bold text-xl text-white mb-2">Harga Terbaik</h3>
+                        <p class="text-slate-400 text-sm">Dapatkan harga paling kompetitif untuk semua layanan premium favorit Anda.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="categorySection" class="hidden mb-16 md:mb-20">
+                <h2 class="text-3xl font-bold text-center text-white mb-10 animate-fade-in-up" style="animation-delay: 100ms;">Pilih Kategori</h2>
+                 <div id="categoryView" class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                     <button data-category="streaming" class="category-btn group text-left p-6 bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-teal-500/80 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/10 hover:-translate-y-1 animate-fade-in-up" style="animation-delay: 200ms;">
+                        <div class="flex items-center gap-5"><div class="bg-teal-500/10 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div><div><h2 class="text-xl font-bold text-white">Streaming Film & Video</h2><p class="text-sm text-slate-400 mt-1">Netflix, YouTube, Disney+, dll.</p></div></div>
+                    </button>
+                     <button data-category="aplikasi" class="category-btn group text-left p-6 bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-sky-500/80 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/10 hover:-translate-y-1 animate-fade-in-up" style="animation-delay: 300ms;">
+                        <div class="flex items-center gap-5"><div class="bg-sky-500/10 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-sky-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" /></svg></div><div><h2 class="text-xl font-bold text-white">AI, Editing & Produktivitas</h2><p class="text-sm text-slate-400 mt-1">Canva, Capcut, VPN, dll.</p></div></div>
+                    </button>
+                    <button data-category="musik" class="category-btn group text-left p-6 bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-pink-500/80 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/10 hover:-translate-y-1 animate-fade-in-up" style="animation-delay: 400ms;">
+                        <div class="flex items-center gap-5"><div class="bg-pink-500/10 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 6l12-3" /></svg></div><div><h2 class="text-xl font-bold text-white">Musik & Audio</h2><p class="text-sm text-slate-400 mt-1">Spotify, Apple Music, dll.</p></div></div>
+                    </button>
+                     <button data-category="edukasi" class="category-btn group text-left p-6 bg-slate-800/50 backdrop-blur-sm border border-slate-700 hover:border-amber-500/80 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1 animate-fade-in-up" style="animation-delay: 500ms;">
+                        <div class="flex items-center gap-5"><div class="bg-amber-500/10 p-3 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div><div><h2 class="text-xl font-bold text-white">Edukasi & Lainnya</h2><p class="text-sm text-slate-400 mt-1">Duolingo, Scribd, dll.</p></div></div>
+                    </button>
+                </div>
+            </section>
+            
+            <section id="testimonials" class="py-16">
+                <h2 class="text-3xl font-bold text-center text-white mb-10">Ulasan Pelanggan</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                    <div class="bg-slate-800/50 backdrop-blur-md border border-slate-700 rounded-2xl p-6 flex flex-col"><div class="flex items-center text-amber-400 mb-2 text-lg">★★★★★</div><p class="text-slate-300 mt-3 flex-grow">"Prosesnya cepet banget, gak sampai 5 menit akun Spotify Premium udah aktif. Adminnya ramah dan fast response. Recommended seller!"</p><div class="mt-4 pt-4 border-t border-slate-700/50"><p class="font-semibold text-white">Rizky Amelia</p></div></div>
+                    <div class="bg-slate-800/50 backdrop-blur-md border border-slate-700 rounded-2xl p-6 flex flex-col"><div class="flex items-center text-amber-400 mb-2 text-lg">★★★★★</div><p class="text-slate-300 mt-3 flex-grow">"Udah langganan Canva Pro setahun di sini. Harganya paling murah dan full garansi. Kalau ada kendala, admin langsung bantu. Mantap!"</p><div class="mt-4 pt-4 border-t border-slate-700/50"><p class="font-semibold text-white">Rafly Saputra</p></div></div>
+                    <div class="bg-slate-800/50 backdrop-blur-md border border-slate-700 rounded-2xl p-6 flex flex-col"><div class="flex items-center text-amber-400 mb-2 text-lg">★★★★★</div><p class="text-slate-300 mt-3 flex-grow">"Awalnya ragu, tapi ternyata akun Netflix-nya beneran private dan resolusi 4K. Bisa nonton lancar jaya tanpa gangguan. Thank you, min!"</p><div class="mt-4 pt-4 border-t border-slate-700/50"><p class="font-semibold text-white">Dewi Lestari</p></div></div>
+                </div>
+            </section>
+
+                <section id="payment" class="py-16 text-center">
+                <h2 class="text-3xl font-bold text-white mb-10">Metode Pembayaran</h2>
+                <div class="max-w-4xl mx-auto flex flex-wrap justify-center items-center gap-x-8 gap-y-6">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxtQXc00cZxXgkjL1HYFy8rGz3i0pZLMM6SA&usqp=CAU" alt="GoPay" class="h-8" title="GoPay">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Logo_ovo_purple.svg" alt="OVO" class="h-8" title="OVO">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Logo_dana_blue.svg" alt="DANA" class="h-10" title="DANA">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Shopee_logo.svg" alt="ShopeePay" class="h-10" title="ShopeePay">
+                    <div class="font-semibold text-slate-400">💳 Bank Transfer</div>
+                </div>
+            </section>
+
+            <section id="faq" class="py-16">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold text-center text-white mb-10">Pertanyaan Umum (FAQ)</h2>
+                    <div class="space-y-4">
+                         <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Bagaimana proses pemesanannya?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">1. Pilih produk > 2. Klik tombol "Pesan" > 3. Anda akan diarahkan ke WhatsApp kami untuk konfirmasi & pembayaran > 4. Setelah bayar, akun segera kami proses.</p></details>
+                         <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Apakah akunnya aman dan bergaransi?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">Tentu. Kami memberikan garansi penuh selama durasi langganan. Jika terjadi kendala pada akun (misal tidak bisa login), kami akan segera memperbaikinya atau menggantinya dengan yang baru.</p></details>
+                        <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Metode pembayaran apa saja?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">Kami menerima pembayaran melalui transfer bank dan semua e-wallet populer di Indonesia (GoPay, OVO, DANA, LinkAja, dan ShopeePay).</p></details>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="border-t border-slate-800 py-8">
+            <div class="container mx-auto px-4 text-center text-slate-500 text-sm">
+                <p>&copy; 2025 Pricelist Digital by mlbbtpi. Semua Hak Cipta Dilindungi.</p>
+            </div>
+        </footer>
+    </div>
+    
+    <div id="productView" class="hidden">
+        <div class="container mx-auto px-4 py-16">
+            <h2 id="productViewTitle" class="text-3xl md:text-4xl font-bold text-center text-white mb-10 animate-fade-in-up"></h2>
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            </div>
+            <div id="noResults" class="hidden text-center py-16">
+                <h3 class="text-2xl font-bold text-white">Produk tidak ditemukan</h3>
+                <p class="text-slate-400 mt-2">Coba gunakan kata kunci lain atau kembali untuk melihat kategori.</p>
+            </div>
+        </div>
+        <button id="backToCategories" class="floating-btn fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-6 py-3 bg-cyan-500 text-slate-900 font-bold rounded-full shadow-lg shadow-cyan-500/30 transition-transform hover:scale-105">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" /></svg>
+            Kembali
+        </button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- CORRECTED PRODUCT LIST ---
+            const allProducts = [
+                { category: 'aplikasi', id: 'alightmotion', name: 'Alight Motion', logo: 'https://files.catbox.moe/r99cvz.png', color: 'teal', info: 'Aplikasi motion graphics profesional untuk animasi, visual effects, dan video editing.', variations: [ { duration: '1 Bulan', price: '25.000' }, { duration: '1 Tahun', price: '100.000' }] },
+                { category: 'musik', id: 'applemusic', name: 'Apple Music', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Apple_Music_icon.svg/2048px-Apple_Music_icon.svg.png', color: 'pink', info: 'Nikmati audio spasial, lossless, dan lirik yang sinkron dengan lagu.', variations: [ { duration: '1 Bulan', price: '14.000' }, { duration: '3 Bulan', price: '40.000' } ] },
+                { category: 'streaming', id: 'bstation', name: 'Bstation Premium', logo: 'https://files.catbox.moe/dvp8ei.png', color: 'blue', info: 'Surga bagi para pecinta anime, komik, dan video game.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
+                { category: 'aplikasi', id: 'camscanner', name: 'CamScanner Premium', logo: 'https://files.catbox.moe/jeyajq.png', color: 'green', info: 'Ubah ponsel Anda menjadi scanner portabel dengan fitur premium.', variations: [ { duration: '1 Bulan', price: '12.000' }, { duration: '6 Bulan', price: '30.000' } ] },
+                { category: 'aplikasi', id: 'canva', name: 'Canva Pro', logo: 'https://files.catbox.moe/vc4zib.jpg', color: 'sky', info: 'Akses jutaan template, foto, dan font premium untuk semua kebutuhan desainmu.', variations: [ { duration: '1 Bulan', price: '5.000' }, { duration: '6 Bulan', price: '25.000' }, { duration: '1 Tahun', price: '40.000' } ] },
+                { category: 'aplikasi', id: 'capcut', name: 'CapCut Premium', logo: 'https://files.catbox.moe/rcxzun.png', color: 'teal', info: 'Edit video profesional dengan template, efek, dan musik bebas royalti.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '3 Bulan', price: '40.000' }, { duration: '1 Tahun', price: '120.000' } ] },
+                { category: 'streaming', id: 'disney', name: 'Disney+ Hotstar', logo: 'https://files.catbox.moe/9ox0fg.png', color: 'indigo', info: 'Rumah bagi film Marvel, Disney, Pixar, dan konten lokal terbaik.', variations: [ { duration: '1 Bulan', price: '30.000' }, { duration: '1 Tahun', price: '200.000' } ] },
+                { category: 'streaming', id: 'dramabox', name: 'Dramabox', logo: 'https://files.catbox.moe/ob5ctg.png', color: 'rose', info: 'Nikmati ribuan drama pendek dari berbagai genre dalam episode singkat.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '3 Bulan', price: '30.000' } ] },
+                { category: 'streaming', id: 'hbo', name: 'HBO Go', logo: 'https://files.catbox.moe/bgu8ho.png', color: 'purple', info: 'Akses semua serial original HBO, film blockbuster, dan konten eksklusif lainnya.', variations: [ { duration: '1 Bulan', price: '30.000' }, { duration: '3 Bulan', price: '75.000' } ] },
+                { category: 'streaming', id: 'iqiyi', name: 'iQIYI VIP', logo: 'https://files.catbox.moe/2l1idb.png', color: 'green', info: 'Pusat drama China, Korea, dan tayangan Asia populer lainnya.', variations: [ { duration: '1 Bulan', price: '20.000' }, { duration: '3 Bulan', price: '50.000' } ] },
+                { category: 'musik', id: 'joox', name: 'Joox VIP', logo: 'https://files.catbox.moe/xlvuvq.png', color: 'emerald', info: 'Nikmati fitur karaoke, putar lagu sesuai permintaan, dan unduh tanpa batas.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
+                { category: 'streaming', id: 'loklok', name: 'Loklok', logo: 'https://files.catbox.moe/d95k4p.png', color: 'violet', info: 'Nonton film, serial TV, dan drama Asia terbaru secara gratis dengan fitur premium.', variations: [ { duration: '1 Bulan Hp', price: '15.000' } ] },
+                { category: 'streaming', id: 'maxstream', name: 'Maxstream', logo: 'https://files.catbox.moe/6aarrm.png', color: 'red', info: 'Nonton channel TV lokal & internasional, film, dan serial original dari Telkomsel.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
+                { category: 'streaming', id: 'netflix', name: 'Netflix Premium', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Netflix_2015_N_logo.svg/1200px-Netflix_2015_N_logo.svg.png', color: 'red', info: 'Streaming ribuan film dan serial TV populer tanpa batas di semua perangkat.', variations: [ { duration: '1 Bulan', price: '38.000' }, { duration: '3 Bulan', price: '115.000' } ] },
+                { category: 'aplikasi', id: 'nordvpn', name: 'NordVPN', logo: 'https://files.catbox.moe/i3s9ci.png', color: 'indigo', info: 'Amankan koneksi internet Anda dan akses konten dari seluruh dunia.', variations: [ { duration: '1 Bulan', price: '20.000' }, { duration: '1 Tahun', price: '200.000' } ] },
+                { category: 'streaming', id: 'prime', name: 'Prime Video', logo: 'https://files.catbox.moe/52a6mi.png', color: 'cyan', info: 'Nonton serial Amazon Originals seperti The Boys dan The Rings of Power.', variations: [ { duration: '1 Bulan', price: '10.000' }, { duration: '3 Bulan', price: '25.000' } ] },
+                { category: 'streaming', id: 'rctiplus', name: 'RCTI+ Premium', logo: 'https://files.catbox.moe/n6fvyc.png', color: 'blue', info: 'Streaming TV Nasional, FTV, dan konten original RCTI.', variations: [ { duration: '1 Bulan', price: '25.000' } ] },
+                { category: 'streaming', id: 'reelshort', name: 'Reelshort', logo: 'https://files.catbox.moe/7x56aj.png', color: 'pink', info: 'Platform streaming drama vertikal dengan episode berdurasi satu menit.', variations: [ { duration: '1 Bulan', price: '15.000' } ] },
+                { category: 'musik', id: 'resso', name: 'Resso Premium', logo: 'https://files.catbox.moe/qn0p75.png', color: 'rose', info: 'Streaming musik dengan lirik yang sinkron dan bagikan kutipan favoritmu.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
+                { category: 'edukasi', id: 'scribd', name: 'Scribd', logo: 'https://files.catbox.moe/wothjh.png', color: 'emerald', info: 'Akses jutaan ebook, audiobook, majalah, dan dokumen dalam satu langganan.', variations: [ { duration: '1 Bulan', price: '10.000' }, { duration: '3 Bulan', price: '25.000' } ] },
+                { category: 'musik', id: 'spotify', name: 'Spotify Premium', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png', color: 'green', info: 'Dengarkan musik tanpa iklan, lewati lagu sepuasnya, dan nikmati kualitas audio tinggi.', variations: [ { duration: '1 Bulan', price: '18.000' }, { duration: '3 Bulan', price: '45.000' } ] },
+                { category: 'edukasi', id: 'duolingo', name: 'Super Duolingo', logo: 'https://files.catbox.moe/1zgxe4.png', color: 'lime', info: 'Belajar bahasa tanpa batas nyawa, tanpa iklan, dan latihan yang dipersonalisasi.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '1 Tahun', price: '150.000' } ] },
+                { category: 'streaming', id: 'vidio', name: 'Vidio Platinum', logo: 'https://files.catbox.moe/42j8a4.png', color: 'red', info: 'Streaming siaran langsung olahraga, sinetron, dan Vidio Original Series.', variations: [ { duration: '1 Bulan HP', price: '20.000' }, { duration: '1 Bulan TV', price: '15.000' }, { duration: '1 Bulan HP,TV,LAPTOP', price: '30.000' } ] },
+                { category: 'streaming', id: 'visionplus', name: 'Vision+ Premium Sport', logo: 'https://files.catbox.moe/2rgbdl.png', color: 'teal', info: 'Nonton siaran Olahraga, channel TV premium, film, dan serial original Vision+.', variations: [ { duration: '1 Bulan', price: '25.000' } ] },
+                { category: 'streaming', id: 'viu', name: 'Viu Premium', logo: 'https://files.catbox.moe/w6ii3a.png', color: 'yellow', info: 'Spesialis drama Korea terbaru dengan subtitle Indonesia tercepat.', variations: [ { duration: '1 Bulan', price: '10.000' }, { duration: '6 Bulan', price: '50.000' } ] },
+                { category: 'streaming', id: 'wetv', name: 'WeTV VIP', logo: 'https://files.catbox.moe/84g8ap.png', color: 'lime', info: 'Nonton drama Asia, anime, dan variety show eksklusif lebih dulu.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '3 Bulan', price: '40.000' }, { duration: '1 Tahun', price: '80.000' } ] },
+                { category: 'aplikasi', id: 'wink', name: 'Wink Premium', logo: 'https://files.catbox.moe/o20m6a.png', color: 'neutral', info: 'Edit foto dan video dengan AI untuk hasil yang jernih dan berkualitas HD.', variations: [ { duration: '1 Bulan', price: '22.000' } ] },
+                { category: 'aplikasi', id: 'picsart', name: 'Picsart Premium', logo: 'https://files.catbox.moe/bzyavh.png', color: 'violet', info: 'Editor foto dan video serbaguna dengan alat berbasis AI yang bisa menghapus objek.', variations: [ { duration: '1 Bulan', price: '15.000' } ] },
+                { category: 'aplikasi', id: 'getcontact', name: 'GetContact Premium', logo: 'https://files.catbox.moe/q047vf.png', color: 'sky', info: 'Nikmati pengalaman bebas iklan, ketahui siapa yang melihat tag di profil Anda.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
+                { category: 'aplikasi', id: 'chatgpt', name: 'ChatGPT Plus', logo: 'https://files.catbox.moe/diyrwh.png', color: 'white', info: 'Akses lebih cepat ke model AI terdepan, bahkan saat jam sibuk, dengan fitur eksklusif.', variations: [ { duration: '1 Bulan', price: '30.000' } ] },                
+                { category: 'streaming', id: 'youtube', name: 'YouTube Premium', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/2560px-YouTube_full-color_icon_%282017%29.svg.png', color: 'red', info: 'Tonton video tanpa iklan, putar di latar belakang, dan unduh untuk ditonton offline.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '3 Bulan', price: '40.000' }, { duration: '6 Bulan', price: '75.000' } ] },
+                { category: 'aplikasi', id: 'zoom', name: 'Zoom Pro', logo: 'https://files.catbox.moe/6nt72l.png', color: 'blue', info: 'Akun Pro untuk meeting tanpa batas waktu, rekaman cloud, dan fitur canggih lainnya, UPto 100 peserta.', variations: [ { duration: '1 Bulan', price: '20.000' } ] }
+            ];
+
+            const mainView = document.getElementById('main-view');
+            const productView = document.getElementById('productView');
+            const productViewTitle = document.getElementById('productViewTitle');
+            const productGrid = document.getElementById('productGrid');
+            const noResultsView = document.getElementById('noResults');
+            const searchInput = document.getElementById('searchInput');
+            const backToCategoriesBtn = document.getElementById('backToCategories');
+            const bestSellersList = document.getElementById('bestSellersList');
+            const bestSellerIds = new Set(['netflix', 'spotify', 'canva', 'youtube', 'disney', 'picsart', 'capcut']);
+            const tailwindColorMap = { red: 'red', green: 'green', sky: 'sky', teal: 'teal', pink: 'pink', indigo: 'indigo', purple: 'purple', rose: 'rose', emerald: 'emerald', violet: 'violet', orange: 'orange', cyan: 'cyan', yellow: 'yellow', lime: 'lime', blue: 'blue', white: 'slate', neutral: 'slate' };
+
+            const showCategoriesBtn = document.getElementById('showCategoriesBtn');
+            const showCategoriesContainer = document.getElementById('showCategoriesContainer');
+            const categorySection = document.getElementById('categorySection');
+
+            function findLowestPrice(product) {
+                if (!product.variations || product.variations.length === 0) return { price: 'N/A', duration: '' };
+                return product.variations.reduce((lowest, current) => {
+                    const lowestPriceNum = parseInt(lowest.price.replace(/\./g, ''), 10);
+                    const currentPriceNum = parseInt(current.price.replace(/\./g, ''), 10);
+                    return currentPriceNum < lowestPriceNum ? current : lowest;
+                });
+            }
+
+            function generateProductCard(product) {
+                const card = document.createElement('div');
+                card.id = `product-card-${product.id}`;
+                const themeColor = tailwindColorMap[product.color] || 'slate';
+                card.className = `product-card relative bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl flex flex-col transition-all duration-300 overflow-hidden shadow-lg animate-fade-in-up border-t-4 border-${themeColor}-500 hover:border-${themeColor}-400/80 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-${themeColor}-500/10`;
+                card.dataset.name = product.name.toLowerCase();
+
+                let buttonsHTML = product.variations.map((v, i) => 
+                    `<button class="duration-btn flex-1 text-xs font-semibold px-3 py-2 rounded-md transition-colors ${i === 0 ? 'bg-slate-700 text-white' : 'text-slate-400 hover:bg-slate-700/80'}" data-index="${i}">${v.duration}</button>`
+                ).join('');
+                
+                const initialVariation = product.variations[0];
+
+                const orderButtonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>`;
+                
+                card.innerHTML = `
+                    <div class="p-6 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 mb-5">
+                            <div class="w-16 h-16 flex-shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 shadow-md"><img src="${product.logo}" alt="${product.name}" class="w-9 h-9 object-contain" onerror="this.src='https://placehold.co/40x40/FFFFFF/000000?text=${product.name.charAt(0)}';"></div>
+                            <div>
+                                <h3 class="product-name font-bold text-lg text-white leading-tight">${product.name}</h3>
+                                <p class="text-sm font-medium text-green-400 flex items-center gap-1.5 mt-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
+                                    <span>Full Garansi</span>
+                                </p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-300 mb-5 flex-grow">${product.info}</p>
+                        <div class="mb-6 p-1 bg-slate-800/50 rounded-lg flex items-center gap-1">${buttonsHTML}</div>
+                        <div class="mt-auto flex justify-between items-center">
+                            <p id="price-display-${product.id}" class="text-3xl font-extrabold text-white"><span class="font-normal text-slate-500 text-2xl">Rp</span>${initialVariation.price}<span class="text-base font-semibold text-slate-500">/${getDurationUnit(initialVariation.duration)}</span></p>
+                            <a id="order-link-${product.id}" href="https://wa.me/6285161519255?text=Halo, saya tertarik dengan langganan ${product.name} (${initialVariation.duration})." target="_blank" class="bg-${themeColor}-500 text-white font-bold py-2.5 px-4 rounded-lg transition-transform hover:scale-105 text-sm shadow-lg shadow-${themeColor}-500/30 flex items-center gap-2">
+                                ${orderButtonIcon}
+                                <span>Pesan</span>
+                            </a>
+                        </div>
+                    </div>`;
+                return card;
+            }
+            
+            function getDurationUnit(duration) { return duration.toLowerCase().includes('tahun') ? 'thn' : 'bln'; }
+            
+            function generateMarqueeItems() {
+                bestSellersList.innerHTML = ''; // Clear existing items before regenerating
+                const items = [];
+                bestSellerIds.forEach(id => {
+                    const product = allProducts.find(p => p.id === id);
+                    if (product) {
+                        const lowestPriceVariation = findLowestPrice(product);
+                        const themeColor = tailwindColorMap[product.color] || 'slate';
+                        const itemHTML = `
+                        <div class="flex-shrink-0 w-36">
+                            <a href="#" class="bestseller-link relative flex flex-col items-center justify-center text-center gap-2 p-3 h-full bg-slate-800/50 hover:bg-slate-800/100 border border-slate-700/50 rounded-2xl transition-all duration-300 hover:border-${themeColor}-400/50 hover:-translate-y-1" data-category="${product.category}" data-product-id="${product.id}">
+                                <div class="absolute top-1.5 right-1.5 text-[10px] font-semibold bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full">Terlaris</div>
+                                <img src="${product.logo}" alt="${product.name}" class="w-10 h-10 object-contain" onerror="this.src='https://placehold.co/40x40/FFFFFF/000000?text=${product.name.charAt(0)}';">
+                                <div>
+                                    <span class="font-semibold text-sm text-white">${product.name}</span>
+                                    <p class="text-xs text-slate-400 mt-0.5">Mulai Rp${lowestPriceVariation.price}</p>
+                                </div>
+                            </a>
+                        </div>`;
+                        items.push(itemHTML);
+                    }
+                });
+                bestSellersList.innerHTML = [...items, ...items, ...items, ...items].join(''); 
+            }
+
+            generateMarqueeItems();
+
+            function showProducts(products, title) {
+                window.scrollTo({ top: 0, behavior: 'instant' });
+
+                productGrid.innerHTML = '';
+                productGrid.classList.remove('hidden');
+                noResultsView.classList.add('hidden');
+
+                if (products.length > 0) {
+                    productViewTitle.innerHTML = title;
+                    products.forEach(p => productGrid.appendChild(generateProductCard(p)));
+                } else {
+                    productViewTitle.innerHTML = title;
+                    noResultsView.classList.remove('hidden');
+                    productGrid.classList.add('hidden');
+                }
+                
+                mainView.classList.add('hidden');
+                productView.classList.remove('hidden');
+            }
+
+            document.getElementById('searchForm').addEventListener('submit', (e) => {
+                e.preventDefault(); 
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (searchTerm) {
+                    const filteredProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchTerm) || p.info.toLowerCase().includes(searchTerm));
+                    const title = `Hasil pencarian: <span class="text-cyan-400">"${searchInput.value}"</span>`;
+                    showProducts(filteredProducts.sort((a,b) => a.name.localeCompare(b.name)), title);
+                }
+            });
+
+            showCategoriesBtn.addEventListener('click', () => {
+                categorySection.classList.remove('hidden');
+                showCategoriesContainer.classList.add('hidden');
+                categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+
+            document.querySelectorAll('.category-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const category = e.currentTarget.dataset.category;
+                    const categoryName = e.currentTarget.querySelector('h2').textContent;
+                    const products = allProducts.filter(p => p.category === category);
+                    showProducts(products.sort((a,b) => a.name.localeCompare(b.name)), `Kategori: ${categoryName}`);
+                });
+            });
+
+            bestSellersList.addEventListener('click', (e) => {
+                e.preventDefault();
+                const link = e.target.closest('.bestseller-link');
+                if (link) {
+                    const category = link.dataset.category;
+                    const productId = link.dataset.productId;
+                    
+                    document.querySelector(`.category-btn[data-category="${category}"]`).click();
+                    
+                    setTimeout(() => {
+                        const targetCard = document.getElementById(`product-card-${productId}`);
+                        if (targetCard) {
+                            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
+                            targetCard.classList.add('ring-2', 'ring-cyan-400', 'ring-offset-2', 'ring-offset-slate-950');
+                            setTimeout(() => targetCard.classList.remove('ring-2', 'ring-cyan-400', 'ring-offset-2', 'ring-offset-slate-950'), 3000);
+                        }
+                    }, 100);
+                }
+            });
+
+            backToCategoriesBtn.addEventListener('click', () => {
+                mainView.classList.remove('hidden');
+                productView.classList.add('hidden');
+                searchInput.value = '';
+                if (!categorySection.classList.contains('hidden')) {
+                     categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                     window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            });
+
+            productGrid.addEventListener('click', (e) => {
+                const durationButton = e.target.closest('.duration-btn');
+                if (durationButton) {
+                    const card = durationButton.closest('.product-card');
+                    const productId = card.id.replace('product-card-', '');
+                    const productData = allProducts.find(p => p.id === productId);
+                    const variation = productData.variations[durationButton.dataset.index];
+                    
+                    card.querySelector(`#price-display-${productId}`).innerHTML = `<span class="font-normal text-slate-500 text-2xl">Rp</span>${variation.price}<span class="text-base font-semibold text-slate-500">/${getDurationUnit(variation.duration)}</span>`;
+                    card.querySelector(`#order-link-${productId}`).href = `https://wa.me/6285161519255?text=Halo, saya tertarik dengan langganan ${productData.name} (${variation.duration}).`;
+
+                    card.querySelectorAll('.duration-btn').forEach(btn => {
+                         btn.classList.remove('bg-slate-700', 'text-white');
+                         btn.classList.add('text-slate-400', 'hover:bg-slate-700/80');
+                    });
+                    durationButton.classList.add('bg-slate-700', 'text-white');
+                    durationButton.classList.remove('text-slate-400', 'hover:bg-slate-700/80');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
