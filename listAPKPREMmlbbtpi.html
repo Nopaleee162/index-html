@@ -7,13 +7,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         html { scroll-behavior: smooth; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0c1322;
             color: #e2e8f0;
+        }
+        .font-mono {
+            font-family: 'Roboto Mono', monospace;
         }
         .aurora-effect {
             position: fixed;
@@ -46,7 +49,7 @@
         }
         .marquee-container {
             display: flex;
-            animation: marquee 10s linear infinite;
+            animation: marquee 20s linear infinite;
         }
         @keyframes marquee {
             from { transform: translateX(0); }
@@ -60,6 +63,43 @@
             animation: float 3s ease-in-out infinite;
         }
         details > summary::-webkit-details-marker { display: none; }
+        
+        @keyframes modal-fade-in-scale {
+            from { opacity: 0; transform: translateY(20px) scale(0.98); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .modal-content-animation {
+            animation: modal-fade-in-scale 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .qris-container {
+            transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 0;
+            opacity: 0;
+            transform-origin: top;
+            transform: scaleY(0.95);
+            overflow: hidden;
+        }
+        .qris-container.visible {
+            max-height: 500px;
+            opacity: 1;
+            transform: scaleY(1);
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .modal-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #1e293b;
+            border-radius: 10px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 10px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
     </style>
 </head>
 <body class="bg-slate-950">
@@ -68,7 +108,7 @@
     <div class="aurora-effect bottom-[-25%] right-[-25%] w-[700px] h-[700px] bg-purple-700 rounded-full"></div>
 
     <div id="main-view">
-        <div class="container mx-auto px-4 py-16 md:py-20">
+         <div class="container mx-auto px-4 py-16 md:py-20">
             <div class="text-center mb-6 animate-fade-in-up" style="animation-delay: 100ms;">
                 <p class="text-sm text-slate-500">✨ Powered by <span class="font-bold text-slate-400">mlbbtpi</span> ✨</p>
             </div>
@@ -105,7 +145,7 @@
 
             <section id="bestSellers" class="mb-16 md:mb-20 animate-fade-in-up" style="animation-delay: 700ms;">
                  <h2 class="text-2xl font-bold text-center text-white mb-8">
-                    Paling Populer </span>
+                    Paling Populer
                  </h2>
                  <div class="relative overflow-hidden group">
                     <div id="bestSellersList" class="marquee-container flex items-stretch gap-4">
@@ -176,9 +216,9 @@
                 <div class="max-w-4xl mx-auto">
                     <h2 class="text-3xl font-bold text-center text-white mb-10">Pertanyaan Umum (FAQ)</h2>
                     <div class="space-y-4">
-                         <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Bagaimana proses pemesanannya?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">1. Pilih produk > 2. Klik tombol "Pesan" > 3. Anda akan diarahkan ke WhatsApp kami untuk konfirmasi & pembayaran > 4. Setelah bayar, akun segera kami proses.</p></details>
+                         <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Bagaimana proses pemesanannya?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">1. Pilih produk & durasi. <br>2. Klik tombol "Pesan", lalu akan muncul halaman pembayaran. <br>3. Lakukan pembayaran ke salah satu rekening yang tertera. <br>4. Klik tombol "Konfirmasi Pembayaran" untuk memberitahu kami via WhatsApp. <br>5. Akun akan segera kami proses setelah konfirmasi.</p></details>
                          <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Apakah akunnya aman dan bergaransi?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">Tentu. Kami memberikan garansi penuh selama durasi langganan. Jika terjadi kendala pada akun (misal tidak bisa login), kami akan segera memperbaikinya atau menggantinya dengan yang baru.</p></details>
-                        <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Metode pembayaran apa saja?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">Kami menerima pembayaran melalui transfer bank dan semua e-wallet populer di Indonesia (GoPay, OVO, DANA, LinkAja, dan ShopeePay).</p></details>
+                        <details class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 group transition-all duration-300 hover:border-sky-500/50"><summary class="font-semibold text-lg text-white list-none cursor-pointer flex justify-between items-center">Metode pembayaran apa saja?<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg></summary><p class="mt-4 text-slate-400">Kami menerima pembayaran melalui QRIS, transfer bank (BCA, BNI), dan semua e-wallet populer di Indonesia (GoPay, OVO, DANA, dan ShopeePay).</p></details>
                     </div>
                 </div>
             </section>
@@ -207,12 +247,84 @@
         </button>
     </div>
 
+    <div id="paymentModal" class="hidden fixed inset-0 bg-black/70 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="modal-content-animation modal-scroll w-full max-w-md bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl shadow-black/50 max-h-[90vh] overflow-y-auto">
+            <div class="p-4 flex justify-between items-center sticky top-0 bg-slate-800/80 backdrop-blur-sm z-10 border-b border-slate-700">
+                 <h2 class="text-lg font-bold text-white">Rincian Pembayaran</h2>
+                 <button id="closeModalBtn" class="h-8 w-8 flex items-center justify-center rounded-full bg-slate-700/50 hover:bg-slate-700 transition-colors">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                 </button>
+            </div>
+            
+            <div class="p-6">
+                <div class="bg-slate-900 border border-slate-700 rounded-lg p-4 text-center">
+                    <p id="ticketProduct" class="font-semibold text-white text-lg">Nama Produk</p>
+                    <p id="ticketDuration" class="text-slate-400 text-sm">Durasi</p>
+                    <hr class="border-slate-700/50 my-3">
+                    <p class="font-mono text-sm text-slate-400">TOTAL PEMBAYARAN</p>
+                    <p id="ticketPrice" class="text-4xl font-extrabold text-cyan-400 tracking-tight">Rp 0</p>
+                </div>
+
+                <div class="mt-6">
+                    <button id="show-qris-btn" class="w-full bg-slate-700 border border-slate-600 text-white font-semibold py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:bg-slate-600">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 013.75 9.375v-4.5zM3.75 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 013.75 19.125v-4.5zM13.5 4.875c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0113.5 9.375v-4.5zM13.5 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 01-1.875-1.875v-4.5z" /></svg>
+                        Tampilkan Kode QRIS
+                     </button>
+                     
+                     <div id="qris-container" class="qris-container">
+                        <div class="text-center bg-slate-900 p-4 rounded-xl border border-slate-700">
+                           <div class="relative inline-block p-2 bg-white rounded-lg">
+                              <img id="qris-image" src="https://files.catbox.moe/9ooci4.png" alt="QRIS" class="mx-auto rounded-md">
+                           </div>
+                           <p class="text-xs text-amber-400 font-semibold mt-2 text-center">
+                                Mendukung Semua Bank & E-Wallet.<br>Tambahin +Rp 1.000 yaa.
+                           </p>
+                           <button id="download-qris-btn" class="mt-4 w-full bg-cyan-600 text-white font-semibold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all hover:bg-cyan-500 text-sm">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"></path></svg>
+                                Unduh QRIS
+                           </button>
+                       </div>
+                    </div>
+                </div>
+
+                <div id="payment-list" class="mt-4 space-y-3">
+                    </div>
+            </div>
+
+            <div class="p-4 border-t border-slate-700">
+                <button id="confirm-payment-btn" class="block w-full text-center bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition-all hover:scale-105 hover:bg-green-500 shadow-lg shadow-green-500/20">
+                     Konfirmasi Pembayaran
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="contactModal" class="hidden fixed inset-0 bg-black/70 z-[110] flex items-center justify-center p-4 backdrop-blur-sm">
+        <div class="modal-content-animation bg-slate-800 border border-slate-700 rounded-xl p-6 text-center relative w-full max-w-xs shadow-xl">
+            <button id="closeContactModalBtn" class="absolute top-2 right-2 h-8 w-8 flex items-center justify-center rounded-full bg-slate-700/50 hover:bg-slate-700 transition-colors">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            <h3 class="font-bold text-white mb-2 text-lg">Pilih Kontak Konfirmasi</h3>
+            <p class="text-sm text-slate-400 mb-6">Cukup konfirmasi ke salah satu kontak di bawah ini.</p>
+            <div class="space-y-3">
+                <a id="contactAdminBtn" href="#" target="_blank" class="flex items-center justify-center gap-2 w-full bg-sky-500 text-white font-semibold py-3 px-4 rounded-lg transition-transform hover:scale-105">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.57 6.57 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                    Admin MLBBTPI
+                </a>
+                <a id="contactOwnerBtn" href="#" target="_blank" class="flex items-center justify-center gap-2 w-full bg-lime-500 text-white font-semibold py-3 px-4 rounded-lg transition-transform hover:scale-105">
+                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.57 6.57 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>
+                    Owner MLBBTPI
+                </a>
+            </div>
+        </div>
+    </div>
+
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- CORRECTED PRODUCT LIST ---
-            const allProducts = [
-                { category: 'aplikasi', id: 'alightmotion', name: 'Alight Motion', logo: 'https://files.catbox.moe/r99cvz.png', color: 'teal', info: 'Aplikasi motion graphics profesional untuk animasi, visual effects, dan video editing.', variations: [ { duration: '1 Bulan', price: '25.000' }, { duration: '1 Tahun', price: '100.000' }] },
-                { category: 'aplikasi', id: 'youku', name: 'Youku VIP', logo: 'https://www.eternityx.com/wp-content/uploads/2022/04/Youku-优酷-Logo.png', color: 'sky', info: 'Tonton drama Tiongkok populer, film, anime, dan acara varietas kapan saja.', variations: [ { duration: '1 Bulan', price: '7.000' }, { duration: '3 Bulan', price: '20.000' }] },
+             const allProducts = [
+                 { category: 'aplikasi', id: 'alightmotion', name: 'Alight Motion', logo: 'https://files.catbox.moe/r99cvz.png', color: 'teal', info: 'Aplikasi motion graphics profesional untuk animasi, visual effects, dan video editing.', variations: [ { duration: '1 Bulan', price: '5.000' }, { duration: '1 Tahun', price: '20.000' }] },
+                { category: 'streaming', id: 'youku', name: 'Youku VIP', logo: 'https://files.catbox.moe/oqqoyl.png', color: 'blue', info: 'Nonton drama Tiongkok populer, film, anime, dan acara varietas kapan saja.', variations: [ { duration: '1 Bulan', price: '7.000' }, { duration: '3 Bulan', price: '20.000' }] },
                 { category: 'musik', id: 'applemusic', name: 'Apple Music', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Apple_Music_icon.svg/2048px-Apple_Music_icon.svg.png', color: 'pink', info: 'Nikmati audio spasial, lossless, dan lirik yang sinkron dengan lagu.', variations: [ { duration: '1 Bulan', price: '14.000' }, { duration: '3 Bulan', price: '40.000' } ] },
                 { category: 'streaming', id: 'bstation', name: 'Bstation Premium', logo: 'https://files.catbox.moe/dvp8ei.png', color: 'blue', info: 'Surga bagi para pecinta anime, komik, dan video game.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
                 { category: 'aplikasi', id: 'camscanner', name: 'CamScanner Premium', logo: 'https://files.catbox.moe/jeyajq.png', color: 'green', info: 'Ubah ponsel Anda menjadi scanner portabel dengan fitur premium.', variations: [ { duration: '1 Bulan', price: '12.000' }, { duration: '6 Bulan', price: '30.000' } ] },
@@ -223,29 +335,31 @@
                 { category: 'streaming', id: 'hbo', name: 'HBO Go', logo: 'https://files.catbox.moe/bgu8ho.png', color: 'purple', info: 'Akses semua serial original HBO, film blockbuster, dan konten eksklusif lainnya.', variations: [ { duration: '1 Bulan', price: '30.000' }, { duration: '3 Bulan', price: '75.000' } ] },
                 { category: 'streaming', id: 'iqiyi', name: 'iQIYI VIP', logo: 'https://files.catbox.moe/2l1idb.png', color: 'green', info: 'Pusat drama China, Korea, dan tayangan Asia populer lainnya.', variations: [ { duration: '1 Bulan', price: '20.000' }, { duration: '3 Bulan', price: '50.000' } ] },
                 { category: 'musik', id: 'joox', name: 'Joox VIP', logo: 'https://files.catbox.moe/xlvuvq.png', color: 'emerald', info: 'Nikmati fitur karaoke, putar lagu sesuai permintaan, dan unduh tanpa batas.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
-                { category: 'streaming', id: 'loklok', name: 'Loklok', logo: 'https://files.catbox.moe/d95k4p.png', color: 'violet', info: 'Nonton film, serial TV, dan drama Asia terbaru secara gratis dengan fitur premium.', variations: [ { duration: '1 Bulan Hp', price: '15.000' } ] },
+                { category: 'streaming', id: 'loklok', name: 'Loklok', logo: 'https://files.catbox.moe/d95k4p.png', color: 'violet', info: 'Nonton film, serial TV, dan drama Asia terbaru secara gratis dengan fitur premium.', variations: [ { duration: '1 Bulan Hp', price: '10.000' } ] },
                 { category: 'streaming', id: 'maxstream', name: 'Maxstream', logo: 'https://files.catbox.moe/6aarrm.png', color: 'red', info: 'Nonton channel TV lokal & internasional, film, dan serial original dari Telkomsel.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
-                { category: 'streaming', id: 'netflix', name: 'Netflix Premium', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Netflix_2015_N_logo.svg/1200px-Netflix_2015_N_logo.svg.png', color: 'red', info: 'Streaming ribuan film dan serial TV populer tanpa batas di semua perangkat.', variations: [ { duration: '1 Bulan', price: '38.000' }, { duration: '3 Bulan', price: '115.000' } ] },
-                { category: 'aplikasi', id: 'nordvpn', name: 'NordVPN', logo: 'https://files.catbox.moe/i3s9ci.png', color: 'indigo', info: 'Amankan koneksi internet Anda dan akses konten dari seluruh dunia.', variations: [ { duration: '1 Bulan', price: '20.000' }, { duration: '1 Tahun', price: '200.000' } ] },
+                { category: 'streaming', id: 'netflix', name: 'Netflix Premium 4K', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Netflix_2015_N_logo.svg/1200px-Netflix_2015_N_logo.svg.png', color: 'red', info: 'Streaming ribuan film dan serial TV populer tanpa batas di semua perangkat.', variations: [ { duration: '1 Bulan', price: '38.000' }, { duration: '3 Bulan', price: '115.000' } ] },
+                { category: 'aplikasi', id: 'nordvpn', name: 'NordVPN', logo: 'https://files.catbox.moe/i3s9ci.png', color: 'indigo', info: 'Amankan koneksi internet Anda dan akses konten dari seluruh dunia.', variations: [ { duration: '1 Bulan', price: '20.000' }, { duration: '1 Tahun', price: '100.000' } ] },
                 { category: 'streaming', id: 'prime', name: 'Prime Video', logo: 'https://files.catbox.moe/52a6mi.png', color: 'cyan', info: 'Nonton serial Amazon Originals seperti The Boys dan The Rings of Power.', variations: [ { duration: '1 Bulan', price: '10.000' }, { duration: '3 Bulan', price: '25.000' } ] },
                 { category: 'streaming', id: 'rctiplus', name: 'RCTI+ Premium', logo: 'https://files.catbox.moe/n6fvyc.png', color: 'blue', info: 'Streaming TV Nasional, FTV, dan konten original RCTI.', variations: [ { duration: '1 Bulan', price: '25.000' } ] },
                 { category: 'streaming', id: 'reelshort', name: 'Reelshort', logo: 'https://files.catbox.moe/7x56aj.png', color: 'pink', info: 'Platform streaming drama vertikal dengan episode berdurasi satu menit.', variations: [ { duration: '1 Bulan', price: '15.000' } ] },
-                { category: 'musik', id: 'resso', name: 'Resso Premium', logo: 'https://files.catbox.moe/qn0p75.png', color: 'rose', info: 'Streaming musik dengan lirik yang sinkron dan bagikan kutipan favoritmu.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
+                { category: 'musik', id: 'resso', name: 'Resso Premium', logo: 'https://files.catbox.moe/qn0p75.png', color: 'rose', info: 'Streaming musik dengan lirik yang sinkron dan bagikan kutipan favoritmu.', variations: [ { duration: '1 Bulan', price: '20.000' } ] },
                 { category: 'edukasi', id: 'scribd', name: 'Scribd', logo: 'https://files.catbox.moe/wothjh.png', color: 'emerald', info: 'Akses jutaan ebook, audiobook, majalah, dan dokumen dalam satu langganan.', variations: [ { duration: '1 Bulan', price: '10.000' }, { duration: '3 Bulan', price: '25.000' } ] },
                 { category: 'musik', id: 'spotify', name: 'Spotify Premium', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png', color: 'green', info: 'Dengarkan musik tanpa iklan, lewati lagu sepuasnya, dan nikmati kualitas audio tinggi.', variations: [ { duration: '1 Bulan', price: '18.000' }, { duration: '3 Bulan', price: '45.000' } ] },
-                { category: 'edukasi', id: 'duolingo', name: 'Super Duolingo', logo: 'https://files.catbox.moe/1zgxe4.png', color: 'lime', info: 'Belajar bahasa tanpa batas nyawa, tanpa iklan, dan latihan yang dipersonalisasi.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '1 Tahun', price: '150.000' } ] },
+                { category: 'edukasi', id: 'duolingo', name: 'Super Duolingo', logo: 'https://files.catbox.moe/1zgxe4.png', color: 'lime', info: 'Belajar bahasa tanpa batas nyawa, tanpa iklan, dan latihan yang dipersonalisasi.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '1 Tahun', price: '100.000' } ] },
                 { category: 'streaming', id: 'vidio', name: 'Vidio Platinum', logo: 'https://files.catbox.moe/42j8a4.png', color: 'red', info: 'Streaming siaran langsung olahraga, sinetron, dan Vidio Original Series.', variations: [ { duration: '1 Bulan HP', price: '20.000' }, { duration: '1 Bulan TV', price: '15.000' }, { duration: '1 Bulan HP,TV,LAPTOP', price: '30.000' } ] },
                 { category: 'streaming', id: 'visionplus', name: 'Vision+ Premium Sport', logo: 'https://files.catbox.moe/2rgbdl.png', color: 'teal', info: 'Nonton siaran Olahraga, channel TV premium, film, dan serial original Vision+.', variations: [ { duration: '1 Bulan', price: '25.000' } ] },
                 { category: 'streaming', id: 'viu', name: 'Viu Premium', logo: 'https://files.catbox.moe/w6ii3a.png', color: 'yellow', info: 'Spesialis drama Korea terbaru dengan subtitle Indonesia tercepat.', variations: [ { duration: '1 Bulan', price: '10.000' }, { duration: '6 Bulan', price: '50.000' } ] },
                 { category: 'streaming', id: 'wetv', name: 'WeTV VIP', logo: 'https://files.catbox.moe/84g8ap.png', color: 'lime', info: 'Nonton drama Asia, anime, dan variety show eksklusif lebih dulu.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '3 Bulan', price: '40.000' }, { duration: '1 Tahun', price: '80.000' } ] },
                 { category: 'aplikasi', id: 'wink', name: 'Wink Premium', logo: 'https://files.catbox.moe/o20m6a.png', color: 'neutral', info: 'Edit foto dan video dengan AI untuk hasil yang jernih dan berkualitas HD.', variations: [ { duration: '1 Bulan', price: '22.000' } ] },
                 { category: 'aplikasi', id: 'picsart', name: 'Picsart Premium', logo: 'https://files.catbox.moe/bzyavh.png', color: 'violet', info: 'Editor foto dan video serbaguna dengan alat berbasis AI yang bisa menghapus objek.', variations: [ { duration: '1 Bulan', price: '15.000' } ] },
-                { category: 'aplikasi', id: 'getcontact', name: 'GetContact Premium', logo: 'https://files.catbox.moe/q047vf.png', color: 'sky', info: 'Nikmati pengalaman bebas iklan, ketahui siapa yang melihat tag di profil Anda.', variations: [ { duration: '1 Bulan', price: '10.000' } ] },
+                { category: 'aplikasi', id: 'getcontact', name: 'GetContact Premium', logo: 'https://files.catbox.moe/q047vf.png', color: 'sky', info: 'Nikmati pengalaman bebas iklan, ketahui siapa yang melihat tag di profil Anda.', variations: [ { duration: '1 Bulan', price: '12.000' } ] },
                 { category: 'aplikasi', id: 'chatgpt', name: 'ChatGPT Plus', logo: 'https://files.catbox.moe/diyrwh.png', color: 'white', info: 'Akses lebih cepat ke model AI terdepan, bahkan saat jam sibuk, dengan fitur eksklusif.', variations: [ { duration: '1 Bulan', price: '30.000' } ] },                
                 { category: 'streaming', id: 'youtube', name: 'YouTube Premium', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/YouTube_full-color_icon_%282017%29.svg/2560px-YouTube_full-color_icon_%282017%29.svg.png', color: 'red', info: 'Tonton video tanpa iklan, putar di latar belakang, dan unduh untuk ditonton offline.', variations: [ { duration: '1 Bulan', price: '15.000' }, { duration: '3 Bulan', price: '40.000' }, { duration: '6 Bulan', price: '75.000' } ] },
                 { category: 'aplikasi', id: 'zoom', name: 'Zoom Pro', logo: 'https://files.catbox.moe/6nt72l.png', color: 'blue', info: 'Akun Pro untuk meeting tanpa batas waktu, rekaman cloud, dan fitur canggih lainnya, UPto 100 peserta.', variations: [ { duration: '1 Bulan', price: '20.000' } ] }
             ];
-
+            
+            // --- ALL JS LOGIC ---
+            
             const mainView = document.getElementById('main-view');
             const productView = document.getElementById('productView');
             const productViewTitle = document.getElementById('productViewTitle');
@@ -256,185 +370,169 @@
             const bestSellersList = document.getElementById('bestSellersList');
             const bestSellerIds = new Set(['netflix', 'spotify', 'canva', 'youtube', 'disney', 'picsart', 'capcut']);
             const tailwindColorMap = { red: 'red', green: 'green', sky: 'sky', teal: 'teal', pink: 'pink', indigo: 'indigo', purple: 'purple', rose: 'rose', emerald: 'emerald', violet: 'violet', orange: 'orange', cyan: 'cyan', yellow: 'yellow', lime: 'lime', blue: 'blue', white: 'slate', neutral: 'slate' };
-
             const showCategoriesBtn = document.getElementById('showCategoriesBtn');
             const showCategoriesContainer = document.getElementById('showCategoriesContainer');
             const categorySection = document.getElementById('categorySection');
+            
+            const paymentModal = document.getElementById('paymentModal');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const paymentListContainer = document.getElementById('payment-list');
+            const ticketProduct = document.getElementById('ticketProduct');
+            const ticketDuration = document.getElementById('ticketDuration');
+            const ticketPrice = document.getElementById('ticketPrice');
+            const showQrisBtn = document.getElementById('show-qris-btn');
+            const qrisContainer = document.getElementById('qris-container');
+            const confirmPaymentBtn = document.getElementById('confirm-payment-btn');
+            const downloadQrisBtn = document.getElementById('download-qris-btn');
+            const qrisImage = document.getElementById('qris-image');
 
-            function findLowestPrice(product) {
-                if (!product.variations || product.variations.length === 0) return { price: 'N/A', duration: '' };
-                return product.variations.reduce((lowest, current) => {
-                    const lowestPriceNum = parseInt(lowest.price.replace(/\./g, ''), 10);
-                    const currentPriceNum = parseInt(current.price.replace(/\./g, ''), 10);
-                    return currentPriceNum < lowestPriceNum ? current : lowest;
-                });
-            }
+            const contactModal = document.getElementById('contactModal');
+            const closeContactModalBtn = document.getElementById('closeContactModalBtn');
+            const contactAdminBtn = document.getElementById('contactAdminBtn');
+            const contactOwnerBtn = document.getElementById('contactOwnerBtn');
 
-            function generateProductCard(product) {
-                const card = document.createElement('div');
-                card.id = `product-card-${product.id}`;
-                const themeColor = tailwindColorMap[product.color] || 'slate';
-                card.className = `product-card relative bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl flex flex-col transition-all duration-300 overflow-hidden shadow-lg animate-fade-in-up border-t-4 border-${themeColor}-500 hover:border-${themeColor}-400/80 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-${themeColor}-500/10`;
-                card.dataset.name = product.name.toLowerCase();
+            const paymentData = {
+                'BCA': { type: 'bank', number: '8890636030', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bank_Central_Asia.svg/2560px-Bank_Central_Asia.svg.png' },
+                'BNI': { type: 'bank', number: 'gangguan', logo: 'https://upload.wikimedia.org/wikipedia/id/thumb/5/55/BNI_logo.svg/2560px-BNI_logo.svg.png' },
+                'DANA': { type: 'ewallet', number: '081266334443', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Logo_dana_blue.svg/2560px-Logo_dana_blue.svg.png' },
+                'OVO': { type: 'ewallet', number: '081266334443', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Logo_ovo_purple.svg/2560px-Logo_ovo_purple.svg.png' },
+                'GoPay': { type: 'ewallet', number: '081266334443', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Gopay_logo.svg/2560px-Gopay_logo.svg.png'},
+                'ShopeePay': { type: 'ewallet', number: '081266334443', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Shopee.svg/2560px-Shopee.svg.png'}
+            };
 
-                let buttonsHTML = product.variations.map((v, i) => 
-                    `<button class="duration-btn flex-1 text-xs font-semibold px-3 py-2 rounded-md transition-colors ${i === 0 ? 'bg-slate-700 text-white' : 'text-slate-400 hover:bg-slate-700/80'}" data-index="${i}">${v.duration}</button>`
-                ).join('');
-                
-                const initialVariation = product.variations[0];
+            function populatePaymentList() {
+                paymentListContainer.innerHTML = '';
+                let bankHeader = `<h3 class="font-mono text-xs text-slate-400 tracking-widest mb-2">TRANSFER BANK</h3>`;
+                let ewalletHeader = `<h3 class="font-mono text-xs text-slate-400 tracking-widest mt-4 mb-2">E-WALLET</h3>`;
+                let bankHtml = '';
+                let ewalletHtml = '';
 
-                const orderButtonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>`;
-                
-                card.innerHTML = `
-                    <div class="p-6 flex flex-col flex-grow">
-                        <div class="flex items-center gap-4 mb-5">
-                            <div class="w-16 h-16 flex-shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 shadow-md"><img src="${product.logo}" alt="${product.name}" class="w-9 h-9 object-contain" onerror="this.src='https://placehold.co/40x40/FFFFFF/000000?text=${product.name.charAt(0)}';"></div>
-                            <div>
-                                <h3 class="product-name font-bold text-lg text-white leading-tight">${product.name}</h3>
-                                <p class="text-sm font-medium text-green-400 flex items-center gap-1.5 mt-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg>
-                                    <span>Full Garansi</span>
-                                </p>
+                for (const [name, data] of Object.entries(paymentData)) {
+                    const itemHtml = `
+                        <div class="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
+                            <div class="flex items-center gap-4">
+                                <img src="${data.logo}" alt="${name}" class="h-6 object-contain w-16">
+                                <span class="font-mono text-white font-semibold text-base">${data.number}</span>
                             </div>
+                            <button class="copy-btn text-sm bg-slate-600 text-white px-3 py-1 rounded-md hover:bg-slate-500 transition-colors" data-number="${data.number}">Salin</button>
                         </div>
-                        <p class="text-sm text-slate-300 mb-5 flex-grow">${product.info}</p>
-                        <div class="mb-6 p-1 bg-slate-800/50 rounded-lg flex items-center gap-1">${buttonsHTML}</div>
-                        <div class="mt-auto flex justify-between items-center">
-                            <p id="price-display-${product.id}" class="text-3xl font-extrabold text-white"><span class="font-normal text-slate-500 text-2xl">Rp</span>${initialVariation.price}<span class="text-base font-semibold text-slate-500">/${getDurationUnit(initialVariation.duration)}</span></p>
-                            <a id="order-link-${product.id}" href="https://wa.me/6285161519255?text=Halo, saya tertarik dengan langganan ${product.name} (${initialVariation.duration})." target="_blank" class="bg-${themeColor}-500 text-white font-bold py-2.5 px-4 rounded-lg transition-transform hover:scale-105 text-sm shadow-lg shadow-${themeColor}-500/30 flex items-center gap-2">
-                                ${orderButtonIcon}
-                                <span>Pesan</span>
-                            </a>
-                        </div>
-                    </div>`;
-                return card;
+                    `;
+                    if (data.type === 'bank') bankHtml += itemHtml;
+                    else ewalletHtml += itemHtml;
+                }
+                
+                paymentListContainer.innerHTML = (bankHtml ? bankHeader + bankHtml : '') + (ewalletHtml ? ewalletHeader + ewalletHtml : '');
             }
-            
+
+            function findLowestPrice(product) { if (!product.variations || product.variations.length === 0) return { price: 'N/A', duration: '' }; return product.variations.reduce((lowest, current) => { const lowestPriceNum = parseInt(lowest.price.replace(/\./g, ''), 10); const currentPriceNum = parseInt(current.price.replace(/\./g, ''), 10); return currentPriceNum < lowestPriceNum ? current : lowest; }); }
+            function generateProductCard(product) { const card = document.createElement('div'); card.id = `product-card-${product.id}`; const themeColor = tailwindColorMap[product.color] || 'slate'; card.className = `product-card relative bg-slate-900/60 backdrop-blur-sm border border-slate-700/50 rounded-2xl flex flex-col transition-all duration-300 overflow-hidden shadow-lg animate-fade-in-up border-t-4 border-${themeColor}-500 hover:border-${themeColor}-400/80 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-${themeColor}-500/10`; let buttonsHTML = product.variations.map((v, i) => `<button class="duration-btn flex-1 text-xs font-semibold px-3 py-2 rounded-md transition-colors ${i === 0 ? 'bg-slate-700 text-white' : 'text-slate-400 hover:bg-slate-700/80'}" data-index="${i}">${v.duration}</button>`).join(''); const initialVariation = product.variations[0]; const orderButtonIcon = `<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/></svg>`; card.innerHTML = `<div class="p-6 flex flex-col flex-grow"><div class="flex items-center gap-4 mb-5"><div class="w-16 h-16 flex-shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 shadow-md"><img src="${product.logo}" alt="${product.name}" class="w-9 h-9 object-contain" onerror="this.src='https://placehold.co/40x40/FFFFFF/000000?text=${product.name.charAt(0)}';"></div><div><h3 class="product-name font-bold text-lg text-white leading-tight">${product.name}</h3><p class="text-sm font-medium text-green-400 flex items-center gap-1.5 mt-1"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg><span>Full Garansi</span></p></div></div><p class="text-sm text-slate-300 mb-5 flex-grow">${product.info}</p><div class="mb-6 p-1 bg-slate-800/50 rounded-lg flex items-center gap-1">${buttonsHTML}</div><div class="mt-auto flex justify-between items-center"><p id="price-display-${product.id}" class="text-3xl font-extrabold text-white"><span class="font-normal text-slate-500 text-2xl">Rp</span>${initialVariation.price}<span class="text-base font-semibold text-slate-500">/${getDurationUnit(initialVariation.duration)}</span></p><button data-product-name="${product.name}" data-duration="${initialVariation.duration}" data-price="${initialVariation.price}" class="order-btn bg-${themeColor}-500 text-white font-bold py-2.5 px-4 rounded-lg transition-transform hover:scale-105 text-sm shadow-lg shadow-${themeColor}-500/30 flex items-center gap-2">${orderButtonIcon}<span>Pesan</span></button></div></div>`; return card; }
             function getDurationUnit(duration) { return duration.toLowerCase().includes('tahun') ? 'thn' : 'bln'; }
+            function generateMarqueeItems() { bestSellersList.innerHTML = ''; const items = []; bestSellerIds.forEach(id => { const product = allProducts.find(p => p.id === id); if (product) { const lowestPriceVariation = findLowestPrice(product); const themeColor = tailwindColorMap[product.color] || 'slate'; const itemHTML = `<div class="flex-shrink-0 w-36"><a href="#" class="bestseller-link relative flex flex-col items-center justify-center text-center gap-2 p-3 h-full bg-slate-800/50 hover:bg-slate-800/100 border border-slate-700/50 rounded-2xl transition-all duration-300 hover:border-${themeColor}-400/50 hover:-translate-y-1" data-category="${product.category}" data-product-id="${product.id}"><div class="absolute top-1.5 right-1.5 text-[10px] font-semibold bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full">Terlaris</div><img src="${product.logo}" alt="${product.name}" class="w-10 h-10 object-contain" onerror="this.src='https://placehold.co/40x40/FFFFFF/000000?text=${product.name.charAt(0)}';"><div><span class="font-semibold text-sm text-white">${product.name}</span><p class="text-xs text-slate-400 mt-0.5">Mulai Rp${lowestPriceVariation.price}</p></div></a></div>`; items.push(itemHTML); } }); bestSellersList.innerHTML = [...items, ...items, ...items, ...items].join(''); }
+            function showProducts(products, title) { window.scrollTo({ top: 0, behavior: 'instant' }); productGrid.innerHTML = ''; noResultsView.classList.add('hidden'); if (products.length > 0) { productViewTitle.innerHTML = title; products.forEach(p => productGrid.appendChild(generateProductCard(p))); } else { productViewTitle.innerHTML = title; noResultsView.classList.remove('hidden'); } mainView.classList.add('hidden'); productView.classList.remove('hidden'); }
+            document.getElementById('searchForm').addEventListener('submit', (e) => { e.preventDefault(); const searchTerm = searchInput.value.toLowerCase().trim(); if (searchTerm) { const filteredProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchTerm) || p.info.toLowerCase().includes(searchTerm)); const title = `Hasil pencarian: <span class="text-cyan-400">"${searchInput.value}"</span>`; showProducts(filteredProducts.sort((a,b) => a.name.localeCompare(b.name)), title); } });
+            showCategoriesBtn.addEventListener('click', () => { categorySection.classList.remove('hidden'); showCategoriesContainer.classList.add('hidden'); categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+            document.querySelectorAll('.category-btn').forEach(button => { button.addEventListener('click', (e) => { const category = e.currentTarget.dataset.category; const categoryName = e.currentTarget.querySelector('h2').textContent; const products = allProducts.filter(p => p.category === category); showProducts(products.sort((a,b) => a.name.localeCompare(b.name)), `Kategori: ${categoryName}`); }); });
+            bestSellersList.addEventListener('click', (e) => { e.preventDefault(); const link = e.target.closest('.bestseller-link'); if (link) { const category = link.dataset.category; const productId = link.dataset.productId; document.querySelector(`.category-btn[data-category="${category}"]`).click(); setTimeout(() => { const targetCard = document.getElementById(`product-card-${productId}`); if (targetCard) { targetCard.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' }); targetCard.classList.add('ring-2', 'ring-cyan-400', 'ring-offset-2', 'ring-offset-slate-950'); setTimeout(() => targetCard.classList.remove('ring-2', 'ring-cyan-400', 'ring-offset-2', 'ring-offset-slate-950'), 3000); } }, 100); } });
+            backToCategoriesBtn.addEventListener('click', () => { mainView.classList.remove('hidden'); productView.classList.add('hidden'); searchInput.value = ''; if (!categorySection.classList.contains('hidden')) { categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' }); } else { window.scrollTo({ top: 0, behavior: 'smooth' }); } });
             
-            function generateMarqueeItems() {
-                bestSellersList.innerHTML = ''; // Clear existing items before regenerating
-                const items = [];
-                bestSellerIds.forEach(id => {
-                    const product = allProducts.find(p => p.id === id);
-                    if (product) {
-                        const lowestPriceVariation = findLowestPrice(product);
-                        const themeColor = tailwindColorMap[product.color] || 'slate';
-                        const itemHTML = `
-                        <div class="flex-shrink-0 w-36">
-                            <a href="#" class="bestseller-link relative flex flex-col items-center justify-center text-center gap-2 p-3 h-full bg-slate-800/50 hover:bg-slate-800/100 border border-slate-700/50 rounded-2xl transition-all duration-300 hover:border-${themeColor}-400/50 hover:-translate-y-1" data-category="${product.category}" data-product-id="${product.id}">
-                                <div class="absolute top-1.5 right-1.5 text-[10px] font-semibold bg-amber-500/20 text-amber-400 px-1.5 py-0.5 rounded-full">Terlaris</div>
-                                <img src="${product.logo}" alt="${product.name}" class="w-10 h-10 object-contain" onerror="this.src='https://placehold.co/40x40/FFFFFF/000000?text=${product.name.charAt(0)}';">
-                                <div>
-                                    <span class="font-semibold text-sm text-white">${product.name}</span>
-                                    <p class="text-xs text-slate-400 mt-0.5">Mulai Rp${lowestPriceVariation.price}</p>
-                                </div>
-                            </a>
-                        </div>`;
-                        items.push(itemHTML);
-                    }
-                });
-                bestSellersList.innerHTML = [...items, ...items, ...items, ...items].join(''); 
-            }
-
-            generateMarqueeItems();
-
-            function showProducts(products, title) {
-                window.scrollTo({ top: 0, behavior: 'instant' });
-
-                productGrid.innerHTML = '';
-                productGrid.classList.remove('hidden');
-                noResultsView.classList.add('hidden');
-
-                if (products.length > 0) {
-                    productViewTitle.innerHTML = title;
-                    products.forEach(p => productGrid.appendChild(generateProductCard(p)));
-                } else {
-                    productViewTitle.innerHTML = title;
-                    noResultsView.classList.remove('hidden');
-                    productGrid.classList.add('hidden');
-                }
-                
-                mainView.classList.add('hidden');
-                productView.classList.remove('hidden');
-            }
-
-            document.getElementById('searchForm').addEventListener('submit', (e) => {
-                e.preventDefault(); 
-                const searchTerm = searchInput.value.toLowerCase().trim();
-                
-                if (searchTerm) {
-                    const filteredProducts = allProducts.filter(p => p.name.toLowerCase().includes(searchTerm) || p.info.toLowerCase().includes(searchTerm));
-                    const title = `Hasil pencarian: <span class="text-cyan-400">"${searchInput.value}"</span>`;
-                    showProducts(filteredProducts.sort((a,b) => a.name.localeCompare(b.name)), title);
-                }
-            });
-
-            showCategoriesBtn.addEventListener('click', () => {
-                categorySection.classList.remove('hidden');
-                showCategoriesContainer.classList.add('hidden');
-                categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            });
-
-            document.querySelectorAll('.category-btn').forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const category = e.currentTarget.dataset.category;
-                    const categoryName = e.currentTarget.querySelector('h2').textContent;
-                    const products = allProducts.filter(p => p.category === category);
-                    showProducts(products.sort((a,b) => a.name.localeCompare(b.name)), `Kategori: ${categoryName}`);
-                });
-            });
-
-            bestSellersList.addEventListener('click', (e) => {
-                e.preventDefault();
-                const link = e.target.closest('.bestseller-link');
-                if (link) {
-                    const category = link.dataset.category;
-                    const productId = link.dataset.productId;
-                    
-                    document.querySelector(`.category-btn[data-category="${category}"]`).click();
-                    
-                    setTimeout(() => {
-                        const targetCard = document.getElementById(`product-card-${productId}`);
-                        if (targetCard) {
-                            targetCard.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
-                            targetCard.classList.add('ring-2', 'ring-cyan-400', 'ring-offset-2', 'ring-offset-slate-950');
-                            setTimeout(() => targetCard.classList.remove('ring-2', 'ring-cyan-400', 'ring-offset-2', 'ring-offset-slate-950'), 3000);
-                        }
-                    }, 100);
-                }
-            });
-
-            backToCategoriesBtn.addEventListener('click', () => {
-                mainView.classList.remove('hidden');
-                productView.classList.add('hidden');
-                searchInput.value = '';
-                if (!categorySection.classList.contains('hidden')) {
-                     categorySection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                } else {
-                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                }
-            });
-
             productGrid.addEventListener('click', (e) => {
                 const durationButton = e.target.closest('.duration-btn');
+                const orderButton = e.target.closest('.order-btn');
+
                 if (durationButton) {
                     const card = durationButton.closest('.product-card');
                     const productId = card.id.replace('product-card-', '');
                     const productData = allProducts.find(p => p.id === productId);
                     const variation = productData.variations[durationButton.dataset.index];
-                    
                     card.querySelector(`#price-display-${productId}`).innerHTML = `<span class="font-normal text-slate-500 text-2xl">Rp</span>${variation.price}<span class="text-base font-semibold text-slate-500">/${getDurationUnit(variation.duration)}</span>`;
-                    card.querySelector(`#order-link-${productId}`).href = `https://wa.me/6285161519255?text=Halo, saya tertarik dengan langganan ${productData.name} (${variation.duration}).`;
-
-                    card.querySelectorAll('.duration-btn').forEach(btn => {
-                         btn.classList.remove('bg-slate-700', 'text-white');
-                         btn.classList.add('text-slate-400', 'hover:bg-slate-700/80');
-                    });
+                    const orderBtn = card.querySelector('.order-btn');
+                    orderBtn.dataset.productName = productData.name;
+                    orderBtn.dataset.duration = variation.duration;
+                    orderBtn.dataset.price = variation.price;
+                    card.querySelectorAll('.duration-btn').forEach(btn => { btn.classList.remove('bg-slate-700', 'text-white'); btn.classList.add('text-slate-400', 'hover:bg-slate-700/80'); });
                     durationButton.classList.add('bg-slate-700', 'text-white');
                     durationButton.classList.remove('text-slate-400', 'hover:bg-slate-700/80');
                 }
+
+                if (orderButton) {
+                    const productName = orderButton.dataset.productName;
+                    const duration = orderButton.dataset.duration;
+                    const price = orderButton.dataset.price;
+                    const encodedText = encodeURIComponent(`Halo, saya sudah membayar (Rp ${price}) untuk produk ${productName} (${duration}). Mohon diproses ya.`);
+                    
+                    ticketProduct.textContent = productName;
+                    ticketDuration.textContent = duration;
+                    ticketPrice.textContent = `Rp ${price}`;
+                    
+                    contactAdminBtn.href = `https://wa.me/6285161519255?text=${encodedText}`;
+                    contactOwnerBtn.href = `https://wa.me/6281266334443?text=${encodedText}`;
+
+                    paymentModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
             });
+
+            closeModalBtn.addEventListener('click', () => {
+                paymentModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+
+            showQrisBtn.addEventListener('click', () => {
+                const isVisible = qrisContainer.classList.contains('visible');
+                const icon = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 013.75 9.375v-4.5zM3.75 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 013.75 19.125v-4.5zM13.5 4.875c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5A1.875 1.875 0 0113.5 9.375v-4.5zM13.5 14.625c0-1.036.84-1.875 1.875-1.875h4.5c1.036 0 1.875.84 1.875 1.875v4.5c0 1.036-.84 1.875-1.875 1.875h-4.5a1.875 1.875 0 01-1.875-1.875v-4.5z" /></svg>`;
+                if (isVisible) {
+                    qrisContainer.classList.remove('visible');
+                    showQrisBtn.innerHTML = `${icon} Tampilkan Kode QRIS`;
+                } else {
+                    qrisContainer.classList.add('visible');
+                    showQrisBtn.innerHTML = `Sembunyikan QRIS`;
+                }
+            });
+
+            downloadQrisBtn.addEventListener('click', () => {
+                const link = document.createElement('a');
+                link.href = qrisImage.src;
+                link.download = 'QRIS_Pembayaran_mlbbtpi.png';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+
+            paymentListContainer.addEventListener('click', (e) => {
+                const copyBtn = e.target.closest('.copy-btn');
+                if (copyBtn) {
+                    const numberToCopy = copyBtn.dataset.number;
+                    navigator.clipboard.writeText(numberToCopy).then(() => {
+                        const originalText = copyBtn.innerHTML;
+                        copyBtn.innerHTML = 'Disalin!';
+                        copyBtn.classList.add('bg-green-500');
+                        setTimeout(() => {
+                            copyBtn.innerHTML = originalText;
+                            copyBtn.classList.remove('bg-green-500');
+                        }, 1500);
+                    });
+                }
+            });
+
+            confirmPaymentBtn.addEventListener('click', () => {
+                contactModal.classList.remove('hidden');
+            });
+
+            closeContactModalBtn.addEventListener('click', () => {
+                contactModal.classList.add('hidden');
+            });
+            
+            function closeAllModals() {
+                paymentModal.classList.add('hidden');
+                contactModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            contactAdminBtn.addEventListener('click', closeAllModals);
+            contactOwnerBtn.addEventListener('click', closeAllModals);
+            
+            generateMarqueeItems();
+            populatePaymentList();
         });
     </script>
 </body>
